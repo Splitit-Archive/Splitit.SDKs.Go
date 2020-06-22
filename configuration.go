@@ -45,9 +45,9 @@ var (
 	Default = &Configuration{
 		BasePath:      "https://webapi.production.splitit.com",
 		DefaultHeader: map[string]string{
-    		"Splitit-SDK": "Go-0.1.0",
+    		"Splitit-SDK": "Go-0.1.1",
 		},
-		UserAgent:     "SplititSdk/0.1.0/go",
+		UserAgent:     "SplititSdk/0.1.1/go",
 		Debug:         false,
 		Servers:       []ServerConfiguration{
 			{
@@ -60,9 +60,9 @@ var (
 	Sandbox = &Configuration{
 		BasePath:      "https://webapi.sandbox.splitit.com",
 		DefaultHeader: map[string]string{
-    		"Splitit-SDK": "Go-0.1.0",
+    		"Splitit-SDK": "Go-0.1.1",
 		},
-		UserAgent:     "SplititSdk/0.1.0/go",
+		UserAgent:     "SplititSdk/0.1.1/go",
 		Debug:         false,
 		Servers:       []ServerConfiguration{
 			{
