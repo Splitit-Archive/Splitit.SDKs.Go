@@ -35,89 +35,89 @@ Please install required packages as described above and then run the following:
 package main
 
 import (
-	_context "context"
-	"fmt"
+    _context "context"
+    "fmt"
     "os"
-	"strconv"
-	"time"
-	"github.com/splitit/splitit.sdks.go"
+    "strconv"
+    "time"
+    "github.com/splitit/splitit.sdks.go"
 )
 
 func main() {
-	// Shared configuration instance for sandbox and production environment
-	splitit.Sandbox.AddApiKey("_YOUR_SANDBOX_API_KEY_")
+    // Shared configuration instance for sandbox and production environment
+    splitit.Sandbox.AddApiKey("_YOUR_SANDBOX_API_KEY_")
     splitit.Default.AddApiKey("_YOUR_PRODUCTION_API_KEY_")
 
     // use this to print out full request and response, for debugging purposes
-	//splitit.Sandbox.Debug = true 
+    //splitit.Sandbox.Debug = true 
 
-	// Recommended to have one shared client, initialize with either Sandbox or Production (Default)
-	client := splitit.NewAPIClient(splitit.Sandbox)
+    // Recommended to have one shared client, initialize with either Sandbox or Production (Default)
+    client := splitit.NewAPIClient(splitit.Sandbox)
 
     // Perform login, get sessionId
-	loginResponse, _, _ := client.LoginApi.LoginPost(_context.Background(), splitit.LoginRequest{
-		UserName: "_YOUR_USERNAME_",
-		Password: "_YOUR_PASSWORD_",
-	})
+    loginResponse, _, _ := client.LoginApi.LoginPost(_context.Background(), splitit.LoginRequest{
+        UserName: "_YOUR_USERNAME_",
+        Password: "_YOUR_PASSWORD_",
+    })
 
     // Set session id to current context
-	ctx := _context.WithValue(_context.Background(), "splitit.context", splitit.SplititRequestContext{
-		Culture:   "en-US",
-		SessionId: loginResponse.SessionId,
-	})
+    ctx := _context.WithValue(_context.Background(), "splitit.context", splitit.SplititRequestContext{
+        Culture:   "en-US",
+        SessionId: loginResponse.SessionId,
+    })
 
     // Create initiate request
-	initReq := splitit.InitiateInstallmentPlanRequest{
-		PlanData: &splitit.PlanData{
-			Amount: &splitit.MoneyWithCurrencyCode{
-				Value:        300,
-				CurrencyCode: "USD",
-			},
-			NumberOfInstallments: 6,
-		},
-		BillingAddress: &splitit.AddressData{
-			AddressLine:  "260 Madison Avenue.",
-			AddressLine2: "Appartment 1",
-			City:         "New York",
-			State:        "NY",
-			Country:      "USA",
-			Zip:          "10016",
-		},
-		ConsumerData: &splitit.ConsumerData{
-			FullName:    "John Smith",
-			Email:       "JohnGo@splitit.com",
-			PhoneNumber: "1-844-775-4848",
-			CultureName: "en-us",
-		},
-	}
+    initReq := splitit.InitiateInstallmentPlanRequest{
+        PlanData: &splitit.PlanData{
+            Amount: &splitit.MoneyWithCurrencyCode{
+                Value:        300,
+                CurrencyCode: "USD",
+            },
+            NumberOfInstallments: 6,
+        },
+        BillingAddress: &splitit.AddressData{
+            AddressLine:  "260 Madison Avenue.",
+            AddressLine2: "Appartment 1",
+            City:         "New York",
+            State:        "NY",
+            Country:      "USA",
+            Zip:          "10016",
+        },
+        ConsumerData: &splitit.ConsumerData{
+            FullName:    "John Smith",
+            Email:       "JohnGo@splitit.com",
+            PhoneNumber: "1-844-775-4848",
+            CultureName: "en-us",
+        },
+    }
 
-	initResponse, _, err := client.InstallmentPlanApi.InstallmentPlanInitiate(ctx, initReq)
+    initResponse, _, err := client.InstallmentPlanApi.InstallmentPlanInitiate(ctx, initReq)
 
     if err != nil {
-		fmt.Println("Error during initiate: " + err.Error())
+        fmt.Println("Error during initiate: " + err.Error())
         os.Exit(1)
-	} else {
-		fmt.Println("Initiate success: " + strconv.FormatBool(initResponse.ResponseHeader.Succeeded))
-	}
+    } else {
+        fmt.Println("Initiate success: " + strconv.FormatBool(initResponse.ResponseHeader.Succeeded))
+    }
 
-	createReq := splitit.CreateInstallmentPlanRequest{
-		CreditCardDetails: &splitit.CardData{
-			CardNumber:         "411111111111111",
-			CardCvv:            "111",
-			CardHolderFullName: "John Smith",
-			CardExpMonth:       "12",
-			CardExpYear:        "2022",
-		},
-		InstallmentPlanNumber: initResponse.InstallmentPlan.InstallmentPlanNumber,
-	}
+    createReq := splitit.CreateInstallmentPlanRequest{
+        CreditCardDetails: &splitit.CardData{
+            CardNumber:         "411111111111111",
+            CardCvv:            "111",
+            CardHolderFullName: "John Smith",
+            CardExpMonth:       "12",
+            CardExpYear:        "2022",
+        },
+        InstallmentPlanNumber: initResponse.InstallmentPlan.InstallmentPlanNumber,
+    }
 
-	createResponse, _, err := client.InstallmentPlanApi.InstallmentPlanCreate(ctx, createReq)
+    createResponse, _, err := client.InstallmentPlanApi.InstallmentPlanCreate(ctx, createReq)
 
-	if err != nil {
-		fmt.Println("Create error: " + err.Error())
-	} else {
-		fmt.Println("Create success: " + strconv.FormatBool(createResponse.ResponseHeader.Succeeded))
-	}
+    if err != nil {
+        fmt.Println("Create error: " + err.Error())
+    } else {
+        fmt.Println("Create success: " + strconv.FormatBool(createResponse.ResponseHeader.Succeeded))
+    }
 }
 
 ```
@@ -135,10 +135,10 @@ and verifying payment before order is finalized and shipped.
 ```go
 func get_flexfields_public_token() {
 
-	splitit.Sandbox.AddApiKey("_YOUR_SANDBOX_API_KEY_")
+    splitit.Sandbox.AddApiKey("_YOUR_SANDBOX_API_KEY_")
     splitit.Default.AddApiKey("_YOUR_PRODUCTION_API_KEY_")
 
-	client := splitit.NewAPIClient(splitit.Sandbox)
+    client := splitit.NewAPIClient(splitit.Sandbox)
 
     ff, err := splitit.FlexFieldsAuthenticate(_context.Background(), client, "_YOUR_USERNAME_", "_YOUR_PASSWORD_")
     token, err := ff.GetPublicToken(350, "USD")
@@ -150,13 +150,13 @@ func get_flexfields_public_token() {
 ```go
 func verify_payment(planNumber, originalAmount) {
 
-	splitit.Sandbox.AddApiKey("_YOUR_SANDBOX_API_KEY_")
+    splitit.Sandbox.AddApiKey("_YOUR_SANDBOX_API_KEY_")
     splitit.Default.AddApiKey("_YOUR_PRODUCTION_API_KEY_")
 
-	client := splitit.NewAPIClient(splitit.Sandbox)
+    client := splitit.NewAPIClient(splitit.Sandbox)
 
-	ff, err := splitit.FlexFieldsAuthenticate(_context.Background(), client, "_YOUR_USERNAME_", "_YOUR_PASSWORD_")
-	isVerified, err := ff.VerifyPayment(planNumber, originalAmount)
+    ff, err := splitit.FlexFieldsAuthenticate(_context.Background(), client, "_YOUR_USERNAME_", "_YOUR_PASSWORD_")
+    isVerified, err := ff.VerifyPayment(planNumber, originalAmount)
 
     if !isVerified {
         // Respond to potential fraud attempt.
@@ -172,7 +172,6 @@ All URIs are relative to *https://webapi.production.splitit.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*CreateInstallmentPlanApi* | [**CreateInstallmentPlanGet**](docs/CreateInstallmentPlanApi.md#createinstallmentplanget) | **Get** /api/CreateInstallmentPlan | 
 *InfoApi* | [**InfoGetLearnMoreDetails**](docs/InfoApi.md#infogetlearnmoredetails) | **Post** /api/Merchant/GetLearnMoreDetails | 
 *InfrastructureApi* | [**InfrastructureGetResources**](docs/InfrastructureApi.md#infrastructuregetresources) | **Post** /api/Infrastructure/GetResources | 
 *InfrastructureApi* | [**InfrastructureGetResources2**](docs/InfrastructureApi.md#infrastructuregetresources2) | **Get** /api/Infrastructure/GetResources | 
@@ -192,7 +191,6 @@ Class | Method | HTTP request | Description
 *InstallmentPlanApi* | [**InstallmentPlanTermsAndConditions**](docs/InstallmentPlanApi.md#installmentplantermsandconditions) | **Post** /api/InstallmentPlan/TermsAndConditions | 
 *InstallmentPlanApi* | [**InstallmentPlanUpdate**](docs/InstallmentPlanApi.md#installmentplanupdate) | **Post** /api/InstallmentPlan/Update | 
 *InstallmentPlanApi* | [**InstallmentPlanVerifyPayment**](docs/InstallmentPlanApi.md#installmentplanverifypayment) | **Post** /api/InstallmentPlan/Get/VerifyPayment | 
-*LoginApi* | [**LoginGet**](docs/LoginApi.md#loginget) | **Get** /api/Login | 
 *LoginApi* | [**LoginPost**](docs/LoginApi.md#loginpost) | **Post** /api/Login | 
 
 
