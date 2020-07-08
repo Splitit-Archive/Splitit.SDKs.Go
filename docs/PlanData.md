@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **FirstChargeDate** | [**time.Time**](time.Time.md) |  | [optional] 
 **AutoCapture** | **bool** |  | [optional] 
 **IsFunded** | **bool** |  | [optional] 
-**Attempt3DSecure** | [**map[string]interface{}**](.md) |  | [optional] 
+**Attempt3DSecure** | **bool** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

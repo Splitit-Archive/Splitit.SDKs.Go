@@ -15,4 +15,5 @@ import (
 type Installment struct {
 	Date *SplititTime `json:"Date,omitempty"`
 	Amount *MoneyWithCurrencyCode `json:"Amount,omitempty"`
+	HeldAmount float64 `json:"HeldAmount"`
 }

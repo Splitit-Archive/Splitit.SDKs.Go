@@ -20,4 +20,5 @@ const (
 	DELAYRESOLUTION_PENDING_SUSPICIOUS_REVIEW DelayResolution = "PendingSuspiciousReview"
 	DELAYRESOLUTION_DEFAULTED_IN_COLLECTION DelayResolution = "DefaultedInCollection"
 	DELAYRESOLUTION_DEFAULTED_PERMANENTLY DelayResolution = "DefaultedPermanently"
+	DELAYRESOLUTION_DEFAULTED_COLLECTED_FROM_MERCHANT DelayResolution = "DefaultedCollectedFromMerchant"
 )

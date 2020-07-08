@@ -27,9 +27,13 @@ type PaymentWizardDataResponse struct {
 	IsShopperPhoneMandatory bool `json:"IsShopperPhoneMandatory"`
 	NumberOfInstallmentsSelectionsOption string `json:"NumberOfInstallmentsSelectionsOption,omitempty"`
 	AddressIsReadonly bool `json:"AddressIsReadonly"`
+	PhoneIsReadOnly bool `json:"PhoneIsReadOnly"`
+	EmailIsReadOnly bool `json:"EmailIsReadOnly"`
 	LogoURL string `json:"LogoURL,omitempty"`
 	PrivacyPolicyUrl string `json:"PrivacyPolicyUrl,omitempty"`
 	TermsAndConditionsUrl string `json:"TermsAndConditionsUrl,omitempty"`
 	LearnMoreUrl string `json:"LearnMoreUrl,omitempty"`
 	PaymentFormMessages *[]PaymentFormMessage `json:"PaymentFormMessages,omitempty"`
+	DisplayProperties map[string]string `json:"DisplayProperties,omitempty"`
+	TermsAndConditions *TermsAndConditions `json:"TermsAndConditions,omitempty"`
 }
