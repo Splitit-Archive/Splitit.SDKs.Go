@@ -87,9 +87,9 @@ func NewSandboxAPIClient(options... APIOption) *APIClient {
 	cfg := &Configuration{
 		BasePath:      "https://webapi.sandbox.splitit.com",
 		DefaultHeader: map[string]string{
-    		"Splitit-SDK": "Go-1.5.5",
+    		"Splitit-SDK": "Go-1.5.6",
 		},
-		UserAgent:     "SplititSdk/1.5.5/go",
+		UserAgent:     "SplititSdk/1.5.6/go",
 		Debug:         false,
 		Servers:       []ServerConfiguration{
 			{
@@ -107,9 +107,9 @@ func NewAPIClient(options... APIOption) *APIClient {
 	cfg := &Configuration{
 		BasePath:      "https://webapi.production.splitit.com",
 		DefaultHeader: map[string]string{
-    		"Splitit-SDK": "Go-1.5.5",
+    		"Splitit-SDK": "Go-1.5.6",
 		},
-		UserAgent:     "SplititSdk/1.5.5/go",
+		UserAgent:     "SplititSdk/1.5.6/go",
 		Debug:         false,
 		Servers:       []ServerConfiguration{
 			{
