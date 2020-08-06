@@ -10,5 +10,5 @@
 package splitit
 // GetInitiatedInstallmentPlanRequest struct for GetInitiatedInstallmentPlanRequest
 type GetInitiatedInstallmentPlanRequest struct {
-	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"`
+	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"` 
 }

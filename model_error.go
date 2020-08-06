@@ -10,7 +10,7 @@
 package splitit
 // Error struct for Error
 type Error struct {
-	ErrorCode string `json:"ErrorCode,omitempty"`
-	Message string `json:"Message,omitempty"`
-	AdditionalInfo string `json:"AdditionalInfo,omitempty"`
+	ErrorCode string `json:"ErrorCode,omitempty"` 
+	Message string `json:"Message,omitempty"` 
+	AdditionalInfo string `json:"AdditionalInfo,omitempty"` 
 }

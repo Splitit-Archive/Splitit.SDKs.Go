@@ -10,7 +10,7 @@
 package splitit
 // GetInstallmentsPlanSearchCriteriaRequest struct for GetInstallmentsPlanSearchCriteriaRequest
 type GetInstallmentsPlanSearchCriteriaRequest struct {
-	QueryCriteria *InstallmentPlanQueryCriteria `json:"QueryCriteria,omitempty"`
-	LoadRelated *RelationsLoad `json:"LoadRelated,omitempty"`
-	PagingRequest *PagingRequestHeader `json:"PagingRequest,omitempty"`
+	QueryCriteria *InstallmentPlanQueryCriteria `json:"QueryCriteria,omitempty"` 
+	LoadRelated *RelationsLoad `json:"LoadRelated,omitempty"` 
+	PagingRequest *PagingRequestHeader `json:"PagingRequest,omitempty"` 
 }

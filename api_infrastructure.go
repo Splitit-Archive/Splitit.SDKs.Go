@@ -23,8 +23,17 @@ var (
 	_ _context.Context
 )
 
-// InfrastructureApiService InfrastructureApi service
-type InfrastructureApiService service
+// InfrastructureApi service interface
+type InfrastructureApiService interface {
+	InfrastructureGetResources(ctx _context.Context, request GetResourcesRequest) (GetResourcesResponse, *_nethttp.Response, error)
+	InfrastructureGetResources2(ctx _context.Context, localVarOptionals *InfrastructureGetResources2Opts) (GetResourcesResponse, *_nethttp.Response, error)
+}
+
+// InfrastructureApi service implementation
+type implInfrastructureApiService struct {
+	*APIClient
+}
+
 
 /*
 InfrastructureGetResources Method for InfrastructureGetResources
@@ -32,7 +41,7 @@ InfrastructureGetResources Method for InfrastructureGetResources
  * @param request
 @return GetResourcesResponse
 */
-func (a *InfrastructureApiService) InfrastructureGetResources(ctx _context.Context, request GetResourcesRequest) (GetResourcesResponse, *_nethttp.Response, error) {
+func (a implInfrastructureApiService) InfrastructureGetResources(ctx _context.Context, request GetResourcesRequest) (GetResourcesResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -43,7 +52,7 @@ func (a *InfrastructureApiService) InfrastructureGetResources(ctx _context.Conte
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/Infrastructure/GetResources"
+	localVarPath := a.cfg.BasePath + "/api/Infrastructure/GetResources"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -67,12 +76,12 @@ func (a *InfrastructureApiService) InfrastructureGetResources(ctx _context.Conte
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -90,7 +99,7 @@ func (a *InfrastructureApiService) InfrastructureGetResources(ctx _context.Conte
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v GetResourcesResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -100,7 +109,7 @@ func (a *InfrastructureApiService) InfrastructureGetResources(ctx _context.Conte
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -110,10 +119,10 @@ func (a *InfrastructureApiService) InfrastructureGetResources(ctx _context.Conte
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr
@@ -151,7 +160,7 @@ InfrastructureGetResources2 Method for InfrastructureGetResources2
  * @param "SystemTextCategories" (optional.Interface of []SystemTextCategory) - 
 @return GetResourcesResponse
 */
-func (a *InfrastructureApiService) InfrastructureGetResources2(ctx _context.Context, localVarOptionals *InfrastructureGetResources2Opts) (GetResourcesResponse, *_nethttp.Response, error) {
+func (a implInfrastructureApiService) InfrastructureGetResources2(ctx _context.Context, localVarOptionals *InfrastructureGetResources2Opts) (GetResourcesResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -162,7 +171,7 @@ func (a *InfrastructureApiService) InfrastructureGetResources2(ctx _context.Cont
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/Infrastructure/GetResources"
+	localVarPath := a.cfg.BasePath + "/api/Infrastructure/GetResources"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -210,12 +219,12 @@ func (a *InfrastructureApiService) InfrastructureGetResources2(ctx _context.Cont
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -233,7 +242,7 @@ func (a *InfrastructureApiService) InfrastructureGetResources2(ctx _context.Cont
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v GetResourcesResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -243,7 +252,7 @@ func (a *InfrastructureApiService) InfrastructureGetResources2(ctx _context.Cont
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -253,10 +262,10 @@ func (a *InfrastructureApiService) InfrastructureGetResources2(ctx _context.Cont
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr

@@ -21,8 +21,16 @@ var (
 	_ _context.Context
 )
 
-// InfoApiService InfoApi service
-type InfoApiService service
+// InfoApi service interface
+type InfoApiService interface {
+	InfoGetLearnMoreDetails(ctx _context.Context, request LearnMoreDetailsRequest) (LearnMoreDetailsResponse, *_nethttp.Response, error)
+}
+
+// InfoApi service implementation
+type implInfoApiService struct {
+	*APIClient
+}
+
 
 /*
 InfoGetLearnMoreDetails Method for InfoGetLearnMoreDetails
@@ -30,7 +38,7 @@ InfoGetLearnMoreDetails Method for InfoGetLearnMoreDetails
  * @param request
 @return LearnMoreDetailsResponse
 */
-func (a *InfoApiService) InfoGetLearnMoreDetails(ctx _context.Context, request LearnMoreDetailsRequest) (LearnMoreDetailsResponse, *_nethttp.Response, error) {
+func (a implInfoApiService) InfoGetLearnMoreDetails(ctx _context.Context, request LearnMoreDetailsRequest) (LearnMoreDetailsResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -41,7 +49,7 @@ func (a *InfoApiService) InfoGetLearnMoreDetails(ctx _context.Context, request L
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/Merchant/GetLearnMoreDetails"
+	localVarPath := a.cfg.BasePath + "/api/Merchant/GetLearnMoreDetails"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -65,12 +73,12 @@ func (a *InfoApiService) InfoGetLearnMoreDetails(ctx _context.Context, request L
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -88,7 +96,7 @@ func (a *InfoApiService) InfoGetLearnMoreDetails(ctx _context.Context, request L
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v LearnMoreDetailsResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -98,7 +106,7 @@ func (a *InfoApiService) InfoGetLearnMoreDetails(ctx _context.Context, request L
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -108,10 +116,10 @@ func (a *InfoApiService) InfoGetLearnMoreDetails(ctx _context.Context, request L
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr

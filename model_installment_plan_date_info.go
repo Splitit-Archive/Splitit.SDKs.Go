@@ -10,8 +10,8 @@
 package splitit
 // InstallmentPlanDateInfo struct for InstallmentPlanDateInfo
 type InstallmentPlanDateInfo struct {
-	InstallmentsPlanDateType *InstallmentsPlanDateType `json:"InstallmentsPlanDateType"`
-	StartDate string `json:"StartDate,omitempty"`
-	EndDate string `json:"EndDate,omitempty"`
-	AllDates bool `json:"AllDates"`
+	InstallmentsPlanDateType InstallmentsPlanDateType `json:"InstallmentsPlanDateType"` 
+	StartDate string `json:"StartDate,omitempty"` 
+	EndDate string `json:"EndDate,omitempty"` 
+	AllDates bool `json:"AllDates"` 
 }

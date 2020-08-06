@@ -10,8 +10,8 @@
 package splitit
 // FraudCheck struct for FraudCheck
 type FraudCheck struct {
-	FraudCheckResult *ReferenceEntityBase `json:"FraudCheckResult,omitempty"`
-	ProviderResultCode string `json:"ProviderResultCode,omitempty"`
-	ProviderResultDesc string `json:"ProviderResultDesc,omitempty"`
-	ProviderReferenceId string `json:"ProviderReferenceId,omitempty"`
+	FraudCheckResult *ReferenceEntityBase `json:"FraudCheckResult,omitempty"` 
+	ProviderResultCode string `json:"ProviderResultCode,omitempty"` 
+	ProviderResultDesc string `json:"ProviderResultDesc,omitempty"` 
+	ProviderReferenceId string `json:"ProviderReferenceId,omitempty"` 
 }

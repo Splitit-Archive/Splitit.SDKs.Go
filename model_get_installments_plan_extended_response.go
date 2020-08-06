@@ -10,7 +10,7 @@
 package splitit
 // GetInstallmentsPlanExtendedResponse struct for GetInstallmentsPlanExtendedResponse
 type GetInstallmentsPlanExtendedResponse struct {
-	PlansList *[]ExtendedInstallmentPlan `json:"PlansList,omitempty"`
-	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"`
-	PagingResponseHeader *PagingResponseHeader `json:"PagingResponseHeader,omitempty"`
+	PlansList []InstallmentPlan `json:"PlansList,omitempty"` 
+	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"` 
+	PagingResponseHeader *PagingResponseHeader `json:"PagingResponseHeader,omitempty"` 
 }

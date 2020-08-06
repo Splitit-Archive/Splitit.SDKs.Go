@@ -10,5 +10,5 @@
 package splitit
 // RefundInstallmentPlanResponseAllOf struct for RefundInstallmentPlanResponseAllOf
 type RefundInstallmentPlanResponseAllOf struct {
-	CurrentRefundAmount *Money `json:"CurrentRefundAmount,omitempty"`
+	CurrentRefundAmount *Money `json:"CurrentRefundAmount,omitempty"` 
 }

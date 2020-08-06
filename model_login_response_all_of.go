@@ -10,6 +10,6 @@
 package splitit
 // LoginResponseAllOf struct for LoginResponseAllOf
 type LoginResponseAllOf struct {
-	Result int32 `json:"Result"`
-	ResponseStatus *ResponseStatus `json:"ResponseStatus,omitempty"`
+	Result int32 `json:"Result"` 
+	ResponseStatus *ResponseStatus `json:"ResponseStatus,omitempty"` 
 }

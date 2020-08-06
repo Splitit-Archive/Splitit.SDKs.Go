@@ -10,7 +10,7 @@
 package splitit
 // RefundPlanRequest struct for RefundPlanRequest
 type RefundPlanRequest struct {
-	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"`
-	Amount *MoneyWithCurrencyCode `json:"Amount,omitempty"`
-	RefundStrategy *RefundStrategy `json:"RefundStrategy,omitempty"`
+	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"` 
+	Amount *MoneyWithCurrencyCode `json:"Amount,omitempty"` 
+	RefundStrategy RefundStrategy `json:"RefundStrategy,omitempty"` 
 }

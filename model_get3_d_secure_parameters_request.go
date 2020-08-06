@@ -10,5 +10,5 @@
 package splitit
 // Get3DSecureParametersRequest struct for Get3DSecureParametersRequest
 type Get3DSecureParametersRequest struct {
-	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"`
+	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"` 
 }

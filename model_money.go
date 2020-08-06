@@ -10,6 +10,6 @@
 package splitit
 // Money struct for Money
 type Money struct {
-	Value float64 `json:"Value"`
-	Currency *Currency `json:"Currency,omitempty"`
+	Value float64 `json:"Value"` 
+	Currency *Currency `json:"Currency,omitempty"` 
 }

@@ -10,5 +10,5 @@
 package splitit
 // MerchantRefAllOf struct for MerchantRefAllOf
 type MerchantRefAllOf struct {
-	Name string `json:"Name,omitempty"`
+	Name string `json:"Name,omitempty"` 
 }

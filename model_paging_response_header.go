@@ -10,5 +10,5 @@
 package splitit
 // PagingResponseHeader struct for PagingResponseHeader
 type PagingResponseHeader struct {
-	TotalNumber int64 `json:"TotalNumber"`
+	TotalNumber int64 `json:"TotalNumber"` 
 }

@@ -10,15 +10,15 @@
 package splitit
 // CardData struct for CardData
 type CardData struct {
-	CardId string `json:"CardId,omitempty"`
-	CardNumber string `json:"CardNumber,omitempty"`
-	CardExpMonth string `json:"CardExpMonth,omitempty"`
-	CardExpYear string `json:"CardExpYear,omitempty"`
-	CardBrand *ReferenceEntityBase `json:"CardBrand,omitempty"`
-	CardType *ReferenceEntityBase `json:"CardType,omitempty"`
-	Bin string `json:"Bin,omitempty"`
-	CardHolderFullName string `json:"CardHolderFullName,omitempty"`
-	CardCvv string `json:"CardCvv,omitempty"`
-	Address *AddressData `json:"Address,omitempty"`
-	Token string `json:"Token,omitempty"`
+	CardId string `json:"CardId,omitempty"` 
+	CardNumber string `json:"CardNumber,omitempty"` 
+	CardExpMonth string `json:"CardExpMonth,omitempty"` 
+	CardExpYear string `json:"CardExpYear,omitempty"` 
+	CardBrand *ReferenceEntityBase `json:"CardBrand,omitempty"` 
+	CardType *ReferenceEntityBase `json:"CardType,omitempty"` 
+	Bin string `json:"Bin,omitempty"` 
+	CardHolderFullName string `json:"CardHolderFullName,omitempty"` 
+	CardCvv string `json:"CardCvv,omitempty"` 
+	Address *AddressData `json:"Address,omitempty"` 
+	Token string `json:"Token,omitempty"` 
 }

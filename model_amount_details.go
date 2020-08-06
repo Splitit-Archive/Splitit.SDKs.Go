@@ -10,7 +10,7 @@
 package splitit
 // AmountDetails struct for AmountDetails
 type AmountDetails struct {
-	SubTotal float64 `json:"SubTotal"`
-	Tax float64 `json:"Tax"`
-	Shipping float64 `json:"Shipping"`
+	SubTotal float64 `json:"SubTotal"` 
+	Tax float64 `json:"Tax"` 
+	Shipping float64 `json:"Shipping"` 
 }

@@ -13,12 +13,12 @@ import (
 )
 // TransactionResult struct for TransactionResult
 type TransactionResult struct {
-	GatewayTransactionId string `json:"GatewayTransactionId,omitempty"`
-	SplititTransactionId int64 `json:"SplititTransactionId"`
-	GatewayResultCode string `json:"GatewayResultCode,omitempty"`
-	GatewayResultMessage string `json:"GatewayResultMessage,omitempty"`
-	OperationType *ReferenceEntityBase `json:"OperationType,omitempty"`
-	GatewayResult bool `json:"GatewayResult"`
-	GatewayTransactionDate *SplititTime `json:"GatewayTransactionDate"`
-	IsChargeback bool `json:"IsChargeback"`
+	GatewayTransactionId string `json:"GatewayTransactionId,omitempty"` 
+	SplititTransactionId int64 `json:"SplititTransactionId"` 
+	GatewayResultCode string `json:"GatewayResultCode,omitempty"` 
+	GatewayResultMessage string `json:"GatewayResultMessage,omitempty"` 
+	OperationType *ReferenceEntityBase `json:"OperationType,omitempty"` 
+	GatewayResult bool `json:"GatewayResult"` 
+	GatewayTransactionDate *SplititTime `json:"GatewayTransactionDate"` 
+	IsChargeback bool `json:"IsChargeback"` 
 }

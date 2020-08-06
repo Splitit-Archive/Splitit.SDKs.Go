@@ -10,7 +10,7 @@
 package splitit
 // VerifyPaymentResponse struct for VerifyPaymentResponse
 type VerifyPaymentResponse struct {
-	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"`
-	IsPaid bool `json:"IsPaid"`
-	OriginalAmountPaid float64 `json:"OriginalAmountPaid,omitempty"`
+	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"` 
+	IsPaid bool `json:"IsPaid"` 
+	OriginalAmountPaid float64 `json:"OriginalAmountPaid,omitempty"` 
 }

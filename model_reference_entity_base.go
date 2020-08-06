@@ -10,7 +10,7 @@
 package splitit
 // ReferenceEntityBase struct for ReferenceEntityBase
 type ReferenceEntityBase struct {
-	Id int64 `json:"Id"`
-	Code string `json:"Code,omitempty"`
-	Description string `json:"Description,omitempty"`
+	Id int64 `json:"Id"` 
+	Code string `json:"Code,omitempty"` 
+	Description string `json:"Description,omitempty"` 
 }

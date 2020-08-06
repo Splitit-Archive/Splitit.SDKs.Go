@@ -10,5 +10,5 @@
 package splitit
 // CreateInstallmentsPlanResponseAllOf struct for CreateInstallmentsPlanResponseAllOf
 type CreateInstallmentsPlanResponseAllOf struct {
-	ApprovalUrl string `json:"ApprovalUrl,omitempty"`
+	ApprovalUrl string `json:"ApprovalUrl,omitempty"` 
 }

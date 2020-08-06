@@ -10,5 +10,5 @@
 package splitit
 // EventsEndpoints struct for EventsEndpoints
 type EventsEndpoints struct {
-	CreateSucceeded string `json:"CreateSucceeded,omitempty"`
+	CreateSucceeded string `json:"CreateSucceeded,omitempty"` 
 }

@@ -10,11 +10,11 @@
 package splitit
 // InitiateInstallmentsPlanResponseAllOf struct for InitiateInstallmentsPlanResponseAllOf
 type InitiateInstallmentsPlanResponseAllOf struct {
-	CheckoutUrl string `json:"CheckoutUrl,omitempty"`
-	ApprovalUrl string `json:"ApprovalUrl,omitempty"`
-	TermsAndConditionsUrl string `json:"TermsAndConditionsUrl,omitempty"`
-	PrivacyPolicyUrl string `json:"PrivacyPolicyUrl,omitempty"`
-	InstallmentPlanInfoUrl string `json:"InstallmentPlanInfoUrl,omitempty"`
-	PublicToken string `json:"PublicToken,omitempty"`
-	LearnMoreUrl string `json:"LearnMoreUrl,omitempty"`
+	CheckoutUrl string `json:"CheckoutUrl,omitempty"` 
+	ApprovalUrl string `json:"ApprovalUrl,omitempty"` 
+	TermsAndConditionsUrl string `json:"TermsAndConditionsUrl,omitempty"` 
+	PrivacyPolicyUrl string `json:"PrivacyPolicyUrl,omitempty"` 
+	InstallmentPlanInfoUrl string `json:"InstallmentPlanInfoUrl,omitempty"` 
+	PublicToken string `json:"PublicToken,omitempty"` 
+	LearnMoreUrl string `json:"LearnMoreUrl,omitempty"` 
 }

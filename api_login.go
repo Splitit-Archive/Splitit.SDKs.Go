@@ -22,8 +22,17 @@ var (
 	_ _context.Context
 )
 
-// LoginApiService LoginApi service
-type LoginApiService service
+// LoginApi service interface
+type LoginApiService interface {
+	LoginGet(ctx _context.Context, localVarOptionals *LoginGetOpts) (LoginResponse, *_nethttp.Response, error)
+	LoginPost(ctx _context.Context, request LoginRequest) (LoginResponse, *_nethttp.Response, error)
+}
+
+// LoginApi service implementation
+type implLoginApiService struct {
+	*APIClient
+}
+
 
 // LoginGetOpts Optional parameters for the method 'LoginGet'
 type LoginGetOpts struct {
@@ -39,7 +48,7 @@ LoginGet Method for LoginGet
  * @param "Password" (optional.String) - 
 @return LoginResponse
 */
-func (a *LoginApiService) LoginGet(ctx _context.Context, localVarOptionals *LoginGetOpts) (LoginResponse, *_nethttp.Response, error) {
+func (a implLoginApiService) LoginGet(ctx _context.Context, localVarOptionals *LoginGetOpts) (LoginResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -50,7 +59,7 @@ func (a *LoginApiService) LoginGet(ctx _context.Context, localVarOptionals *Logi
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/Login"
+	localVarPath := a.cfg.BasePath + "/api/Login"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -78,12 +87,12 @@ func (a *LoginApiService) LoginGet(ctx _context.Context, localVarOptionals *Logi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -101,7 +110,7 @@ func (a *LoginApiService) LoginGet(ctx _context.Context, localVarOptionals *Logi
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v LoginResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -111,7 +120,7 @@ func (a *LoginApiService) LoginGet(ctx _context.Context, localVarOptionals *Logi
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -121,10 +130,10 @@ func (a *LoginApiService) LoginGet(ctx _context.Context, localVarOptionals *Logi
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr
@@ -146,7 +155,7 @@ LoginPost Method for LoginPost
  * @param request
 @return LoginResponse
 */
-func (a *LoginApiService) LoginPost(ctx _context.Context, request LoginRequest) (LoginResponse, *_nethttp.Response, error) {
+func (a implLoginApiService) LoginPost(ctx _context.Context, request LoginRequest) (LoginResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -157,7 +166,7 @@ func (a *LoginApiService) LoginPost(ctx _context.Context, request LoginRequest) 
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/Login"
+	localVarPath := a.cfg.BasePath + "/api/Login"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -181,12 +190,12 @@ func (a *LoginApiService) LoginPost(ctx _context.Context, request LoginRequest) 
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -204,7 +213,7 @@ func (a *LoginApiService) LoginPost(ctx _context.Context, request LoginRequest) 
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v LoginResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -214,7 +223,7 @@ func (a *LoginApiService) LoginPost(ctx _context.Context, request LoginRequest) 
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -224,10 +233,10 @@ func (a *LoginApiService) LoginPost(ctx _context.Context, request LoginRequest) 
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr

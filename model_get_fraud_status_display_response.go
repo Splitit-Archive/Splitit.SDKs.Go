@@ -10,10 +10,10 @@
 package splitit
 // GetFraudStatusDisplayResponse struct for GetFraudStatusDisplayResponse
 type GetFraudStatusDisplayResponse struct {
-	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"`
-	Provider string `json:"Provider,omitempty"`
-	FullLog string `json:"FullLog,omitempty"`
-	ProviderResultDescription string `json:"ProviderResultDescription,omitempty"`
-	InstallmentPlanId int64 `json:"InstallmentPlanId"`
-	ProviderResultCode string `json:"ProviderResultCode,omitempty"`
+	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"` 
+	Provider string `json:"Provider,omitempty"` 
+	FullLog string `json:"FullLog,omitempty"` 
+	ProviderResultDescription string `json:"ProviderResultDescription,omitempty"` 
+	InstallmentPlanId int64 `json:"InstallmentPlanId"` 
+	ProviderResultCode string `json:"ProviderResultCode,omitempty"` 
 }

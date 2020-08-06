@@ -10,12 +10,12 @@
 package splitit
 // PaymentWizardData struct for PaymentWizardData
 type PaymentWizardData struct {
-	RequestedNumberOfInstallments string `json:"RequestedNumberOfInstallments,omitempty"`
-	SuccessExitURL string `json:"SuccessExitURL,omitempty"`
-	ErrorExitURL string `json:"ErrorExitURL,omitempty"`
-	CancelExitURL string `json:"CancelExitURL,omitempty"`
-	SuccessAsyncUrl string `json:"SuccessAsyncUrl,omitempty"`
-	ViewName string `json:"ViewName,omitempty"`
-	IsOpenedInIframe bool `json:"IsOpenedInIframe"`
-	PaymentFormMessage string `json:"PaymentFormMessage,omitempty"`
+	RequestedNumberOfInstallments string `json:"RequestedNumberOfInstallments,omitempty"` 
+	SuccessExitURL string `json:"SuccessExitURL,omitempty"` 
+	ErrorExitURL string `json:"ErrorExitURL,omitempty"` 
+	CancelExitURL string `json:"CancelExitURL,omitempty"` 
+	SuccessAsyncUrl string `json:"SuccessAsyncUrl,omitempty"` 
+	ViewName string `json:"ViewName,omitempty"` 
+	IsOpenedInIframe bool `json:"IsOpenedInIframe"` 
+	PaymentFormMessage string `json:"PaymentFormMessage,omitempty"` 
 }

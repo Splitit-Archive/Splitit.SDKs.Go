@@ -10,13 +10,13 @@
 package splitit
 // InitiateInstallmentPlanRequest struct for InitiateInstallmentPlanRequest
 type InitiateInstallmentPlanRequest struct {
-	PlanData *PlanData `json:"PlanData,omitempty"`
-	CartData *CartData `json:"CartData,omitempty"`
-	ConsumerData *ConsumerData `json:"ConsumerData,omitempty"`
-	BillingAddress *AddressData `json:"BillingAddress,omitempty"`
-	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"`
-	PaymentWizardData *PaymentWizardData `json:"PaymentWizardData,omitempty"`
-	RedirectUrls *RedirectUrls `json:"RedirectUrls,omitempty"`
-	EventsEndpoints *EventsEndpoints `json:"EventsEndpoints,omitempty"`
-	CreditCardDetails *CardData `json:"CreditCardDetails,omitempty"`
+	PlanData *PlanData `json:"PlanData,omitempty"` 
+	CartData *CartData `json:"CartData,omitempty"` 
+	ConsumerData *ConsumerData `json:"ConsumerData,omitempty"` 
+	BillingAddress *AddressData `json:"BillingAddress,omitempty"` 
+	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"` 
+	PaymentWizardData *PaymentWizardData `json:"PaymentWizardData,omitempty"` 
+	RedirectUrls *RedirectUrls `json:"RedirectUrls,omitempty"` 
+	EventsEndpoints *EventsEndpoints `json:"EventsEndpoints,omitempty"` 
+	CreditCardDetails *CardData `json:"CreditCardDetails,omitempty"` 
 }

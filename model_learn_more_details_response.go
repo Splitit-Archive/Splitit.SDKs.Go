@@ -10,12 +10,12 @@
 package splitit
 // LearnMoreDetailsResponse struct for LearnMoreDetailsResponse
 type LearnMoreDetailsResponse struct {
-	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"`
-	SupportsCreditCard bool `json:"SupportsCreditCard"`
-	SupportsDebitCard bool `json:"SupportsDebitCard"`
-	ShowSecureStrategyInfo bool `json:"ShowSecureStrategyInfo"`
-	ShowNonSecureStrategyInfo bool `json:"ShowNonSecureStrategyInfo"`
-	Total *MoneyWithCurrencyCode `json:"Total,omitempty"`
-	Installments *[]Installment `json:"Installments,omitempty"`
-	NumberOfInstallments int32 `json:"NumberOfInstallments"`
+	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"` 
+	SupportsCreditCard bool `json:"SupportsCreditCard"` 
+	SupportsDebitCard bool `json:"SupportsDebitCard"` 
+	ShowSecureStrategyInfo bool `json:"ShowSecureStrategyInfo"` 
+	ShowNonSecureStrategyInfo bool `json:"ShowNonSecureStrategyInfo"` 
+	Total *MoneyWithCurrencyCode `json:"Total,omitempty"` 
+	Installments []Installment `json:"Installments,omitempty"` 
+	NumberOfInstallments int32 `json:"NumberOfInstallments"` 
 }

@@ -10,7 +10,7 @@
 package splitit
 // RedirectUrls struct for RedirectUrls
 type RedirectUrls struct {
-	Succeeded string `json:"Succeeded,omitempty"`
-	Canceled string `json:"Canceled,omitempty"`
-	Failed string `json:"Failed,omitempty"`
+	Succeeded string `json:"Succeeded,omitempty"` 
+	Canceled string `json:"Canceled,omitempty"` 
+	Failed string `json:"Failed,omitempty"` 
 }

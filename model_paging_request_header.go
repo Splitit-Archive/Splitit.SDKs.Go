@@ -10,6 +10,6 @@
 package splitit
 // PagingRequestHeader struct for PagingRequestHeader
 type PagingRequestHeader struct {
-	Skip int32 `json:"Skip"`
-	Take int32 `json:"Take"`
+	Skip int32 `json:"Skip"` 
+	Take int32 `json:"Take"` 
 }

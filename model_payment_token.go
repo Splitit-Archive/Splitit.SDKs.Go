@@ -10,6 +10,6 @@
 package splitit
 // PaymentToken struct for PaymentToken
 type PaymentToken struct {
-	Token string `json:"Token,omitempty"`
-	Type string `json:"Type,omitempty"`
+	Token string `json:"Token,omitempty"` 
+	Type string `json:"Type,omitempty"` 
 }

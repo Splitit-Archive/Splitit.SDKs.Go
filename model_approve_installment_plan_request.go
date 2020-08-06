@@ -10,7 +10,7 @@
 package splitit
 // ApproveInstallmentPlanRequest struct for ApproveInstallmentPlanRequest
 type ApproveInstallmentPlanRequest struct {
-	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"`
-	CustomerSignaturePngAsBase64 string `json:"CustomerSignaturePngAsBase64,omitempty"`
-	AreTermsAndConditionsApproved bool `json:"AreTermsAndConditionsApproved"`
+	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"` 
+	CustomerSignaturePngAsBase64 string `json:"CustomerSignaturePngAsBase64,omitempty"` 
+	AreTermsAndConditionsApproved bool `json:"AreTermsAndConditionsApproved"` 
 }

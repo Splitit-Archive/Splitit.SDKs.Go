@@ -10,5 +10,5 @@
 package splitit
 // VerifyPaymentRequest struct for VerifyPaymentRequest
 type VerifyPaymentRequest struct {
-	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"`
+	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"` 
 }

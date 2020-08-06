@@ -10,7 +10,7 @@
 package splitit
 // RefundInstallmentPlanResponse struct for RefundInstallmentPlanResponse
 type RefundInstallmentPlanResponse struct {
-	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"`
-	InstallmentPlan *InstallmentPlan `json:"InstallmentPlan,omitempty"`
-	CurrentRefundAmount *Money `json:"CurrentRefundAmount,omitempty"`
+	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"` 
+	InstallmentPlan *InstallmentPlan `json:"InstallmentPlan,omitempty"` 
+	CurrentRefundAmount *Money `json:"CurrentRefundAmount,omitempty"` 
 }

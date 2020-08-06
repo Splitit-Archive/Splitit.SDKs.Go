@@ -10,5 +10,5 @@
 package splitit
 // InstallmentPlanInitiatedStatuses struct for InstallmentPlanInitiatedStatuses
 type InstallmentPlanInitiatedStatuses struct {
-	ShowInitiatedPlansPaymentRequestSent bool `json:"ShowInitiatedPlansPaymentRequestSent"`
+	ShowInitiatedPlansPaymentRequestSent bool `json:"ShowInitiatedPlansPaymentRequestSent"` 
 }

@@ -10,9 +10,9 @@
 package splitit
 // RequestHeader struct for RequestHeader
 type RequestHeader struct {
-	TouchPoint *TouchPoint `json:"TouchPoint,omitempty"`
-	SessionId string `json:"SessionId,omitempty"`
-	ApiKey string `json:"ApiKey,omitempty"`
-	CultureName string `json:"CultureName,omitempty"`
-	AuthenticationType *AuthenticationType `json:"AuthenticationType,omitempty"`
+	TouchPoint *TouchPoint `json:"TouchPoint,omitempty"` 
+	SessionId string `json:"SessionId,omitempty"` 
+	ApiKey string `json:"ApiKey,omitempty"` 
+	CultureName string `json:"CultureName,omitempty"` 
+	AuthenticationType AuthenticationType `json:"AuthenticationType,omitempty"` 
 }

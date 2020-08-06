@@ -10,7 +10,7 @@
 package splitit
 // TransactionInfo struct for TransactionInfo
 type TransactionInfo struct {
-	TransactionId string `json:"TransactionId,omitempty"`
-	TransactionType *TransactionType `json:"TransactionType"`
-	TransactionStatus *TransactionStatus `json:"TransactionStatus"`
+	TransactionId string `json:"TransactionId,omitempty"` 
+	TransactionType TransactionType `json:"TransactionType"` 
+	TransactionStatus TransactionStatus `json:"TransactionStatus"` 
 }

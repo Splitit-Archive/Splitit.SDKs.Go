@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PlansList** | [**[]ExtendedInstallmentPlan**](ExtendedInstallmentPlan.md) |  | [optional] 
+**PlansList** | [**[]InstallmentPlan**](InstallmentPlan.md) |  | [optional] 
 **ResponseHeader** | [**ResponseHeader**](ResponseHeader.md) |  | [optional] 
 **PagingResponseHeader** | [**PagingResponseHeader**](PagingResponseHeader.md) |  | [optional] 
 

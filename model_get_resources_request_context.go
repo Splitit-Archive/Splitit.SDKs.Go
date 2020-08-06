@@ -10,7 +10,7 @@
 package splitit
 // GetResourcesRequestContext struct for GetResourcesRequestContext
 type GetResourcesRequestContext struct {
-	MerchantCode string `json:"MerchantCode,omitempty"`
-	CultureName string `json:"CultureName,omitempty"`
-	TouchPointCode string `json:"TouchPointCode,omitempty"`
+	MerchantCode string `json:"MerchantCode,omitempty"` 
+	CultureName string `json:"CultureName,omitempty"` 
+	TouchPointCode string `json:"TouchPointCode,omitempty"` 
 }

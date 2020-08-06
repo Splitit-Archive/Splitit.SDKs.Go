@@ -10,5 +10,5 @@
 package splitit
 // CurrencyAllOf struct for CurrencyAllOf
 type CurrencyAllOf struct {
-	Symbol string `json:"Symbol,omitempty"`
+	Symbol string `json:"Symbol,omitempty"` 
 }

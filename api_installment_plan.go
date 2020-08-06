@@ -21,8 +21,31 @@ var (
 	_ _context.Context
 )
 
-// InstallmentPlanApiService InstallmentPlanApi service
-type InstallmentPlanApiService service
+// InstallmentPlanApi service interface
+type InstallmentPlanApiService interface {
+	InstallmentPlanApprove(ctx _context.Context, request ApproveInstallmentPlanRequest) (InstallmentPlanResponse, *_nethttp.Response, error)
+	InstallmentPlanCancel(ctx _context.Context, request CancelInstallmentPlanRequest) (InstallmentPlanResponse, *_nethttp.Response, error)
+	InstallmentPlanChargeBack(ctx _context.Context, request ChargebackRequest) (InstallmentPlanResponse, *_nethttp.Response, error)
+	InstallmentPlanCreate(ctx _context.Context, request CreateInstallmentPlanRequest) (CreateInstallmentsPlanResponse, *_nethttp.Response, error)
+	InstallmentPlanGet(ctx _context.Context, request GetInstallmentsPlanSearchCriteriaRequest) (GetInstallmentsPlanResponse, *_nethttp.Response, error)
+	InstallmentPlanGet3DSecureParameters(ctx _context.Context, request Get3DSecureParametersRequest) (Get3DSecureParametersResponse, *_nethttp.Response, error)
+	InstallmentPlanGetExtended(ctx _context.Context, request GetInstallmentsPlanSearchCriteriaRequest) (GetInstallmentsPlanExtendedResponse, *_nethttp.Response, error)
+	InstallmentPlanGetFraudStatusDisplay(ctx _context.Context, request GetFraudStatusDisplayRequest) (GetFraudStatusDisplayResponse, *_nethttp.Response, error)
+	InstallmentPlanGetInitiatedInstallmentPlanRequest(ctx _context.Context, request GetInitiatedInstallmentPlanRequest) (GetInitiatedInstallmentPlanResponse, *_nethttp.Response, error)
+	InstallmentPlanGetLearnMoreDetails(ctx _context.Context, request LearnMoreDetailsRequest) (LearnMoreDetailsResponse, *_nethttp.Response, error)
+	InstallmentPlanInitiate(ctx _context.Context, request InitiateInstallmentPlanRequest) (InitiateInstallmentsPlanResponse, *_nethttp.Response, error)
+	InstallmentPlanRefund(ctx _context.Context, request RefundPlanRequest) (RefundInstallmentPlanResponse, *_nethttp.Response, error)
+	InstallmentPlanStartInstallments(ctx _context.Context, request StartInstallmentsRequest) (InstallmentPlanResponse, *_nethttp.Response, error)
+	InstallmentPlanTermsAndConditions(ctx _context.Context, request TermsAndConditionsGetRequest) (TermsAndConditionsGetResponse, *_nethttp.Response, error)
+	InstallmentPlanUpdate(ctx _context.Context, request UpdateInstallmentPlanRequest) (UpdateInstallmentsPlanResponse, *_nethttp.Response, error)
+	InstallmentPlanVerifyPayment(ctx _context.Context, request VerifyPaymentRequest) (VerifyPaymentResponse, *_nethttp.Response, error)
+}
+
+// InstallmentPlanApi service implementation
+type implInstallmentPlanApiService struct {
+	*APIClient
+}
+
 
 /*
 InstallmentPlanApprove Method for InstallmentPlanApprove
@@ -30,7 +53,7 @@ InstallmentPlanApprove Method for InstallmentPlanApprove
  * @param request
 @return InstallmentPlanResponse
 */
-func (a *InstallmentPlanApiService) InstallmentPlanApprove(ctx _context.Context, request ApproveInstallmentPlanRequest) (InstallmentPlanResponse, *_nethttp.Response, error) {
+func (a implInstallmentPlanApiService) InstallmentPlanApprove(ctx _context.Context, request ApproveInstallmentPlanRequest) (InstallmentPlanResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -41,7 +64,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanApprove(ctx _context.Context,
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/InstallmentPlan/Approve"
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/Approve"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -65,12 +88,12 @@ func (a *InstallmentPlanApiService) InstallmentPlanApprove(ctx _context.Context,
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -88,7 +111,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanApprove(ctx _context.Context,
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v InstallmentPlanResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -98,7 +121,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanApprove(ctx _context.Context,
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -108,10 +131,10 @@ func (a *InstallmentPlanApiService) InstallmentPlanApprove(ctx _context.Context,
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr
@@ -133,7 +156,7 @@ InstallmentPlanCancel Method for InstallmentPlanCancel
  * @param request
 @return InstallmentPlanResponse
 */
-func (a *InstallmentPlanApiService) InstallmentPlanCancel(ctx _context.Context, request CancelInstallmentPlanRequest) (InstallmentPlanResponse, *_nethttp.Response, error) {
+func (a implInstallmentPlanApiService) InstallmentPlanCancel(ctx _context.Context, request CancelInstallmentPlanRequest) (InstallmentPlanResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -144,7 +167,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanCancel(ctx _context.Context, 
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/InstallmentPlan/Cancel"
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/Cancel"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -168,12 +191,12 @@ func (a *InstallmentPlanApiService) InstallmentPlanCancel(ctx _context.Context, 
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -191,7 +214,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanCancel(ctx _context.Context, 
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v InstallmentPlanResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -201,7 +224,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanCancel(ctx _context.Context, 
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -211,10 +234,10 @@ func (a *InstallmentPlanApiService) InstallmentPlanCancel(ctx _context.Context, 
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr
@@ -236,7 +259,7 @@ InstallmentPlanChargeBack Method for InstallmentPlanChargeBack
  * @param request
 @return InstallmentPlanResponse
 */
-func (a *InstallmentPlanApiService) InstallmentPlanChargeBack(ctx _context.Context, request ChargebackRequest) (InstallmentPlanResponse, *_nethttp.Response, error) {
+func (a implInstallmentPlanApiService) InstallmentPlanChargeBack(ctx _context.Context, request ChargebackRequest) (InstallmentPlanResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -247,7 +270,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanChargeBack(ctx _context.Conte
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/InstallmentPlan/ChargeBack"
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/ChargeBack"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -271,12 +294,12 @@ func (a *InstallmentPlanApiService) InstallmentPlanChargeBack(ctx _context.Conte
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -294,7 +317,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanChargeBack(ctx _context.Conte
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v InstallmentPlanResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -304,7 +327,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanChargeBack(ctx _context.Conte
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -314,10 +337,10 @@ func (a *InstallmentPlanApiService) InstallmentPlanChargeBack(ctx _context.Conte
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr
@@ -339,7 +362,7 @@ InstallmentPlanCreate Method for InstallmentPlanCreate
  * @param request
 @return CreateInstallmentsPlanResponse
 */
-func (a *InstallmentPlanApiService) InstallmentPlanCreate(ctx _context.Context, request CreateInstallmentPlanRequest) (CreateInstallmentsPlanResponse, *_nethttp.Response, error) {
+func (a implInstallmentPlanApiService) InstallmentPlanCreate(ctx _context.Context, request CreateInstallmentPlanRequest) (CreateInstallmentsPlanResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -350,7 +373,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanCreate(ctx _context.Context, 
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/InstallmentPlan/Create"
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/Create"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -374,12 +397,12 @@ func (a *InstallmentPlanApiService) InstallmentPlanCreate(ctx _context.Context, 
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -397,7 +420,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanCreate(ctx _context.Context, 
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v CreateInstallmentsPlanResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -407,7 +430,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanCreate(ctx _context.Context, 
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -417,10 +440,10 @@ func (a *InstallmentPlanApiService) InstallmentPlanCreate(ctx _context.Context, 
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr
@@ -442,7 +465,7 @@ InstallmentPlanGet Method for InstallmentPlanGet
  * @param request
 @return GetInstallmentsPlanResponse
 */
-func (a *InstallmentPlanApiService) InstallmentPlanGet(ctx _context.Context, request GetInstallmentsPlanSearchCriteriaRequest) (GetInstallmentsPlanResponse, *_nethttp.Response, error) {
+func (a implInstallmentPlanApiService) InstallmentPlanGet(ctx _context.Context, request GetInstallmentsPlanSearchCriteriaRequest) (GetInstallmentsPlanResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -453,7 +476,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanGet(ctx _context.Context, req
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/InstallmentPlan/Get"
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/Get"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -477,12 +500,12 @@ func (a *InstallmentPlanApiService) InstallmentPlanGet(ctx _context.Context, req
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -500,7 +523,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanGet(ctx _context.Context, req
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v GetInstallmentsPlanResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -510,7 +533,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanGet(ctx _context.Context, req
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -520,10 +543,10 @@ func (a *InstallmentPlanApiService) InstallmentPlanGet(ctx _context.Context, req
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr
@@ -545,7 +568,7 @@ InstallmentPlanGet3DSecureParameters Method for InstallmentPlanGet3DSecureParame
  * @param request
 @return Get3DSecureParametersResponse
 */
-func (a *InstallmentPlanApiService) InstallmentPlanGet3DSecureParameters(ctx _context.Context, request Get3DSecureParametersRequest) (Get3DSecureParametersResponse, *_nethttp.Response, error) {
+func (a implInstallmentPlanApiService) InstallmentPlanGet3DSecureParameters(ctx _context.Context, request Get3DSecureParametersRequest) (Get3DSecureParametersResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -556,7 +579,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanGet3DSecureParameters(ctx _co
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/InstallmentPlan/Get3DSecureParameters"
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/Get3DSecureParameters"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -580,12 +603,12 @@ func (a *InstallmentPlanApiService) InstallmentPlanGet3DSecureParameters(ctx _co
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -603,7 +626,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanGet3DSecureParameters(ctx _co
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v Get3DSecureParametersResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -613,7 +636,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanGet3DSecureParameters(ctx _co
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -623,10 +646,10 @@ func (a *InstallmentPlanApiService) InstallmentPlanGet3DSecureParameters(ctx _co
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr
@@ -648,7 +671,7 @@ InstallmentPlanGetExtended Method for InstallmentPlanGetExtended
  * @param request
 @return GetInstallmentsPlanExtendedResponse
 */
-func (a *InstallmentPlanApiService) InstallmentPlanGetExtended(ctx _context.Context, request GetInstallmentsPlanSearchCriteriaRequest) (GetInstallmentsPlanExtendedResponse, *_nethttp.Response, error) {
+func (a implInstallmentPlanApiService) InstallmentPlanGetExtended(ctx _context.Context, request GetInstallmentsPlanSearchCriteriaRequest) (GetInstallmentsPlanExtendedResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -659,7 +682,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetExtended(ctx _context.Cont
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/InstallmentPlan/GetExtended"
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/GetExtended"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -683,12 +706,12 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetExtended(ctx _context.Cont
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -706,7 +729,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetExtended(ctx _context.Cont
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v GetInstallmentsPlanExtendedResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -716,7 +739,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetExtended(ctx _context.Cont
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -726,10 +749,10 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetExtended(ctx _context.Cont
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr
@@ -751,7 +774,7 @@ InstallmentPlanGetFraudStatusDisplay Method for InstallmentPlanGetFraudStatusDis
  * @param request
 @return GetFraudStatusDisplayResponse
 */
-func (a *InstallmentPlanApiService) InstallmentPlanGetFraudStatusDisplay(ctx _context.Context, request GetFraudStatusDisplayRequest) (GetFraudStatusDisplayResponse, *_nethttp.Response, error) {
+func (a implInstallmentPlanApiService) InstallmentPlanGetFraudStatusDisplay(ctx _context.Context, request GetFraudStatusDisplayRequest) (GetFraudStatusDisplayResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -762,7 +785,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetFraudStatusDisplay(ctx _co
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/InstallmentPlan/GetFraudStatusDisplay"
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/GetFraudStatusDisplay"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -786,12 +809,12 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetFraudStatusDisplay(ctx _co
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -809,7 +832,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetFraudStatusDisplay(ctx _co
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v GetFraudStatusDisplayResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -819,7 +842,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetFraudStatusDisplay(ctx _co
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -829,10 +852,10 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetFraudStatusDisplay(ctx _co
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr
@@ -854,7 +877,7 @@ InstallmentPlanGetInitiatedInstallmentPlanRequest Method for InstallmentPlanGetI
  * @param request
 @return GetInitiatedInstallmentPlanResponse
 */
-func (a *InstallmentPlanApiService) InstallmentPlanGetInitiatedInstallmentPlanRequest(ctx _context.Context, request GetInitiatedInstallmentPlanRequest) (GetInitiatedInstallmentPlanResponse, *_nethttp.Response, error) {
+func (a implInstallmentPlanApiService) InstallmentPlanGetInitiatedInstallmentPlanRequest(ctx _context.Context, request GetInitiatedInstallmentPlanRequest) (GetInitiatedInstallmentPlanResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -865,7 +888,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetInitiatedInstallmentPlanRe
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/InstallmentPlan/GetInitiatedInstallmentPlanRequest"
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/GetInitiatedInstallmentPlanRequest"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -889,12 +912,12 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetInitiatedInstallmentPlanRe
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -912,7 +935,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetInitiatedInstallmentPlanRe
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v GetInitiatedInstallmentPlanResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -922,7 +945,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetInitiatedInstallmentPlanRe
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -932,10 +955,10 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetInitiatedInstallmentPlanRe
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr
@@ -957,7 +980,7 @@ InstallmentPlanGetLearnMoreDetails Method for InstallmentPlanGetLearnMoreDetails
  * @param request
 @return LearnMoreDetailsResponse
 */
-func (a *InstallmentPlanApiService) InstallmentPlanGetLearnMoreDetails(ctx _context.Context, request LearnMoreDetailsRequest) (LearnMoreDetailsResponse, *_nethttp.Response, error) {
+func (a implInstallmentPlanApiService) InstallmentPlanGetLearnMoreDetails(ctx _context.Context, request LearnMoreDetailsRequest) (LearnMoreDetailsResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -968,7 +991,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetLearnMoreDetails(ctx _cont
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/InstallmentPlan/GetLearnMoreDetails"
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/GetLearnMoreDetails"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -992,12 +1015,12 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetLearnMoreDetails(ctx _cont
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1015,7 +1038,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetLearnMoreDetails(ctx _cont
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v LearnMoreDetailsResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1025,7 +1048,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetLearnMoreDetails(ctx _cont
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -1035,10 +1058,10 @@ func (a *InstallmentPlanApiService) InstallmentPlanGetLearnMoreDetails(ctx _cont
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1060,7 +1083,7 @@ InstallmentPlanInitiate Method for InstallmentPlanInitiate
  * @param request
 @return InitiateInstallmentsPlanResponse
 */
-func (a *InstallmentPlanApiService) InstallmentPlanInitiate(ctx _context.Context, request InitiateInstallmentPlanRequest) (InitiateInstallmentsPlanResponse, *_nethttp.Response, error) {
+func (a implInstallmentPlanApiService) InstallmentPlanInitiate(ctx _context.Context, request InitiateInstallmentPlanRequest) (InitiateInstallmentsPlanResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -1071,7 +1094,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanInitiate(ctx _context.Context
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/InstallmentPlan/Initiate"
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/Initiate"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -1095,12 +1118,12 @@ func (a *InstallmentPlanApiService) InstallmentPlanInitiate(ctx _context.Context
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1118,7 +1141,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanInitiate(ctx _context.Context
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v InitiateInstallmentsPlanResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1128,7 +1151,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanInitiate(ctx _context.Context
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -1138,10 +1161,10 @@ func (a *InstallmentPlanApiService) InstallmentPlanInitiate(ctx _context.Context
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1163,7 +1186,7 @@ InstallmentPlanRefund Method for InstallmentPlanRefund
  * @param request
 @return RefundInstallmentPlanResponse
 */
-func (a *InstallmentPlanApiService) InstallmentPlanRefund(ctx _context.Context, request RefundPlanRequest) (RefundInstallmentPlanResponse, *_nethttp.Response, error) {
+func (a implInstallmentPlanApiService) InstallmentPlanRefund(ctx _context.Context, request RefundPlanRequest) (RefundInstallmentPlanResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -1174,7 +1197,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanRefund(ctx _context.Context, 
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/InstallmentPlan/Refund"
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/Refund"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -1198,12 +1221,12 @@ func (a *InstallmentPlanApiService) InstallmentPlanRefund(ctx _context.Context, 
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1221,7 +1244,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanRefund(ctx _context.Context, 
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v RefundInstallmentPlanResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1231,7 +1254,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanRefund(ctx _context.Context, 
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -1241,10 +1264,10 @@ func (a *InstallmentPlanApiService) InstallmentPlanRefund(ctx _context.Context, 
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1266,7 +1289,7 @@ InstallmentPlanStartInstallments Method for InstallmentPlanStartInstallments
  * @param request
 @return InstallmentPlanResponse
 */
-func (a *InstallmentPlanApiService) InstallmentPlanStartInstallments(ctx _context.Context, request StartInstallmentsRequest) (InstallmentPlanResponse, *_nethttp.Response, error) {
+func (a implInstallmentPlanApiService) InstallmentPlanStartInstallments(ctx _context.Context, request StartInstallmentsRequest) (InstallmentPlanResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -1277,7 +1300,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanStartInstallments(ctx _contex
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/InstallmentPlan/StartInstallments"
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/StartInstallments"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -1301,12 +1324,12 @@ func (a *InstallmentPlanApiService) InstallmentPlanStartInstallments(ctx _contex
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1324,7 +1347,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanStartInstallments(ctx _contex
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v InstallmentPlanResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1334,7 +1357,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanStartInstallments(ctx _contex
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -1344,10 +1367,10 @@ func (a *InstallmentPlanApiService) InstallmentPlanStartInstallments(ctx _contex
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1369,7 +1392,7 @@ InstallmentPlanTermsAndConditions Method for InstallmentPlanTermsAndConditions
  * @param request
 @return TermsAndConditionsGetResponse
 */
-func (a *InstallmentPlanApiService) InstallmentPlanTermsAndConditions(ctx _context.Context, request TermsAndConditionsGetRequest) (TermsAndConditionsGetResponse, *_nethttp.Response, error) {
+func (a implInstallmentPlanApiService) InstallmentPlanTermsAndConditions(ctx _context.Context, request TermsAndConditionsGetRequest) (TermsAndConditionsGetResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -1380,7 +1403,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanTermsAndConditions(ctx _conte
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/InstallmentPlan/TermsAndConditions"
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/TermsAndConditions"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -1404,12 +1427,12 @@ func (a *InstallmentPlanApiService) InstallmentPlanTermsAndConditions(ctx _conte
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1427,7 +1450,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanTermsAndConditions(ctx _conte
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v TermsAndConditionsGetResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1437,7 +1460,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanTermsAndConditions(ctx _conte
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -1447,10 +1470,10 @@ func (a *InstallmentPlanApiService) InstallmentPlanTermsAndConditions(ctx _conte
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1472,7 +1495,7 @@ InstallmentPlanUpdate Method for InstallmentPlanUpdate
  * @param request
 @return UpdateInstallmentsPlanResponse
 */
-func (a *InstallmentPlanApiService) InstallmentPlanUpdate(ctx _context.Context, request UpdateInstallmentPlanRequest) (UpdateInstallmentsPlanResponse, *_nethttp.Response, error) {
+func (a implInstallmentPlanApiService) InstallmentPlanUpdate(ctx _context.Context, request UpdateInstallmentPlanRequest) (UpdateInstallmentsPlanResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -1483,7 +1506,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanUpdate(ctx _context.Context, 
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/InstallmentPlan/Update"
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/Update"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -1507,12 +1530,12 @@ func (a *InstallmentPlanApiService) InstallmentPlanUpdate(ctx _context.Context, 
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1530,7 +1553,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanUpdate(ctx _context.Context, 
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v UpdateInstallmentsPlanResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1540,7 +1563,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanUpdate(ctx _context.Context, 
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -1550,10 +1573,10 @@ func (a *InstallmentPlanApiService) InstallmentPlanUpdate(ctx _context.Context, 
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1575,7 +1598,7 @@ InstallmentPlanVerifyPayment Method for InstallmentPlanVerifyPayment
  * @param request
 @return VerifyPaymentResponse
 */
-func (a *InstallmentPlanApiService) InstallmentPlanVerifyPayment(ctx _context.Context, request VerifyPaymentRequest) (VerifyPaymentResponse, *_nethttp.Response, error) {
+func (a implInstallmentPlanApiService) InstallmentPlanVerifyPayment(ctx _context.Context, request VerifyPaymentRequest) (VerifyPaymentResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -1586,7 +1609,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanVerifyPayment(ctx _context.Co
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/InstallmentPlan/Get/VerifyPayment"
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/Get/VerifyPayment"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -1610,12 +1633,12 @@ func (a *InstallmentPlanApiService) InstallmentPlanVerifyPayment(ctx _context.Co
 	}
 	// body params
 	localVarPostBody = &request
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1633,7 +1656,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanVerifyPayment(ctx _context.Co
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v VerifyPaymentResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1643,7 +1666,7 @@ func (a *InstallmentPlanApiService) InstallmentPlanVerifyPayment(ctx _context.Co
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -1653,10 +1676,10 @@ func (a *InstallmentPlanApiService) InstallmentPlanVerifyPayment(ctx _context.Co
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr

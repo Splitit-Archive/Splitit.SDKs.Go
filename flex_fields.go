@@ -7,7 +7,6 @@ import (
 )
 
 type FlexFields struct {
-	ActiveContext        _context.Context
 	Client               *APIClient
 	NumberOfInstallments int32
 	ActiveInitRequest    InitiateInstallmentPlanRequest
@@ -29,11 +28,9 @@ func FlexFieldsAuthenticate(ctx _context.Context, client *APIClient, username st
 	if err != nil {
 		return nil, err
 	}
+	client.SetSessionID(loginResponse.SessionId)
 
 	ff := &FlexFields{
-		ActiveContext: _context.WithValue(ctx, "splitit.context", SplititRequestContext{
-			SessionId: loginResponse.SessionId,
-		}),
 		Client: client,
 		ActiveInitRequest: InitiateInstallmentPlanRequest{
 			PlanData: &PlanData{},
@@ -44,10 +41,7 @@ func FlexFieldsAuthenticate(ctx _context.Context, client *APIClient, username st
 }
 
 func (ff *FlexFields) AddCulture(culture string) {
-	reqContext, _ := ff.ActiveContext.Value("splitit.context").(SplititRequestContext)
-	reqContext.Culture = culture
-
-	ff.ActiveContext = _context.WithValue(ff.ActiveContext, "splitit.context", reqContext)
+	ff.Client.cfg.culture = culture
 }
 
 func (ff *FlexFields) AddInstallments(installmentOptions string, defaultNumInstallments int32) {
@@ -67,13 +61,13 @@ func (ff *FlexFields) AddBillingInformation(billingAddress *AddressData, consume
 	ff.ActiveInitRequest.ConsumerData = consumerData
 }
 
-func (ff *FlexFields) GetPublicToken(amount float64, currencyCode string) (string, error) {
+func (ff *FlexFields) GetPublicToken(ctx _context.Context, amount float64, currencyCode string) (string, error) {
 	ff.ActiveInitRequest.PlanData.Amount = &MoneyWithCurrencyCode{
 		Value:        amount,
 		CurrencyCode: currencyCode,
 	}
 
-	initResponse, _, err := ff.Client.InstallmentPlanApi.InstallmentPlanInitiate(ff.ActiveContext, ff.ActiveInitRequest)
+	initResponse, _, err := ff.Client.InstallmentPlanApi.InstallmentPlanInitiate(ctx, ff.ActiveInitRequest)
 
 	if err != nil {
 		return "", err
@@ -82,12 +76,12 @@ func (ff *FlexFields) GetPublicToken(amount float64, currencyCode string) (strin
 	return initResponse.PublicToken, nil
 }
 
-func (ff *FlexFields) VerifyPayment(planNumber string, orderAmount float64) (bool, error) {
+func (ff *FlexFields) VerifyPayment(ctx _context.Context, planNumber string, orderAmount float64) (bool, error) {
 	req := VerifyPaymentRequest{
 		InstallmentPlanNumber: planNumber,
 	}
 
-	res, _, err := ff.Client.InstallmentPlanApi.InstallmentPlanVerifyPayment(ff.ActiveContext, req)
+	res, _, err := ff.Client.InstallmentPlanApi.InstallmentPlanVerifyPayment(ctx, req)
 	if err != nil {
 		return false, err
 	}

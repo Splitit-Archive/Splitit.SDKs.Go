@@ -22,8 +22,16 @@ var (
 	_ _context.Context
 )
 
-// CreateInstallmentPlanApiService CreateInstallmentPlanApi service
-type CreateInstallmentPlanApiService service
+// CreateInstallmentPlanApi service interface
+type CreateInstallmentPlanApiService interface {
+	CreateInstallmentPlanGet(ctx _context.Context, localVarOptionals *CreateInstallmentPlanGetOpts) (CreateInstallmentPlanLegacyResponse, *_nethttp.Response, error)
+}
+
+// CreateInstallmentPlanApi service implementation
+type implCreateInstallmentPlanApiService struct {
+	*APIClient
+}
+
 
 // CreateInstallmentPlanGetOpts Optional parameters for the method 'CreateInstallmentPlanGet'
 type CreateInstallmentPlanGetOpts struct {
@@ -67,7 +75,7 @@ CreateInstallmentPlanGet Method for CreateInstallmentPlanGet
  * @param "SessionId" (optional.String) - 
 @return CreateInstallmentPlanLegacyResponse
 */
-func (a *CreateInstallmentPlanApiService) CreateInstallmentPlanGet(ctx _context.Context, localVarOptionals *CreateInstallmentPlanGetOpts) (CreateInstallmentPlanLegacyResponse, *_nethttp.Response, error) {
+func (a implCreateInstallmentPlanApiService) CreateInstallmentPlanGet(ctx _context.Context, localVarOptionals *CreateInstallmentPlanGetOpts) (CreateInstallmentPlanLegacyResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -78,7 +86,7 @@ func (a *CreateInstallmentPlanApiService) CreateInstallmentPlanGet(ctx _context.
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/CreateInstallmentPlan"
+	localVarPath := a.cfg.BasePath + "/api/CreateInstallmentPlan"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
@@ -148,12 +156,12 @@ func (a *CreateInstallmentPlanApiService) CreateInstallmentPlanGet(ctx _context.
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(r)
+	localVarHTTPResponse, err := a.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -171,7 +179,7 @@ func (a *CreateInstallmentPlanApiService) CreateInstallmentPlanGet(ctx _context.
 		}
 		if localVarHTTPResponse.StatusCode == 200 {
 			var v CreateInstallmentPlanLegacyResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
@@ -181,7 +189,7 @@ func (a *CreateInstallmentPlanApiService) CreateInstallmentPlanGet(ctx _context.
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
@@ -191,10 +199,10 @@ func (a *CreateInstallmentPlanApiService) CreateInstallmentPlanGet(ctx _context.
 	}
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
-		if len(*localVarReturnValue.ResponseHeader.Errors) > 0 {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
-				error: (*localVarReturnValue.ResponseHeader.Errors)[0].Message,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
 				model: localVarReturnValue.ResponseHeader,
 			}
 			return localVarReturnValue, localVarHTTPResponse, newErr

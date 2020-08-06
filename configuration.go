@@ -38,50 +38,42 @@ type Configuration struct {
 	TouchPoint	  *TouchPoint `json:"touchPoint,omitempty"`
 	Servers       []ServerConfiguration
 	HTTPClient    *http.Client
+
+	culture   string
 }
 
+type APIOption func(*Configuration)
 
-var (
-	Default = &Configuration{
-		BasePath:      "https://webapi.production.splitit.com",
-		DefaultHeader: map[string]string{
-    		"Splitit-SDK": "Go-1.5.0",
-		},
-		UserAgent:     "SplititSdk/1.5.0/go",
-		Debug:         false,
-		Servers:       []ServerConfiguration{
-			{
-				Url: "https://webapi.production.splitit.com/",
-				Description: "Production endpoint",
-			},
-		},
+func Culture(culture string) APIOption {
+	return func(cfg *Configuration) {
+		cfg.culture = culture
 	}
+}
 
-	Sandbox = &Configuration{
-		BasePath:      "https://webapi.sandbox.splitit.com",
-		DefaultHeader: map[string]string{
-    		"Splitit-SDK": "Go-1.5.0",
-		},
-		UserAgent:     "SplititSdk/1.5.0/go",
-		Debug:         false,
-		Servers:       []ServerConfiguration{
-			{
-				Url: "https://webapi.sandbox.splitit.com/",
-				Description: "Sandbox endpoint",
-			},
-		},
+func HTTPClient(client *http.Client) APIOption {
+	return func(cfg *Configuration) {
+		cfg.HTTPClient = client
 	}
-)
+}
+
+func APIKey(apiKey string) APIOption {
+	return func(cfg *Configuration) {
+		cfg.ApiKey = apiKey
+	}
+}
+
+func Debug(debug bool) APIOption {
+	return func(cfg *Configuration) {
+		cfg.Debug = debug
+	}
+}
 
 // AddDefaultHeader adds a new HTTP header to the default header in the request
 func (c *Configuration) AddDefaultHeader(key string, value string) {
 	c.DefaultHeader[key] = value
 }
 
-func (c *Configuration) AddApiKey(key string) {
-	c.ApiKey = key
-}
-
 func (c *Configuration) AddTouchPoint(tp *TouchPoint) {
 	c.TouchPoint = tp
 }
+

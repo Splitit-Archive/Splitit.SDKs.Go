@@ -5,7 +5,7 @@ This is Splitit Web API SDK source code for Go applications. For other languages
 ## Overview
 
 - API version: 1.0.0
-- Package version: 1.5.0
+- Package version: 1.5.1
 
 ## Installation
 
@@ -202,7 +202,6 @@ Class | Method | HTTP request | Description
  - [AmountDetails2](docs/AmountDetails2.md)
  - [ApproveInstallmentPlanRequest](docs/ApproveInstallmentPlanRequest.md)
  - [AuthenticationType](docs/AuthenticationType.md)
- - [BuRef](docs/BuRef.md)
  - [CancelInstallmentPlanRequest](docs/CancelInstallmentPlanRequest.md)
  - [CardData](docs/CardData.md)
  - [CartData](docs/CartData.md)
@@ -217,8 +216,6 @@ Class | Method | HTTP request | Description
  - [DelayResolution](docs/DelayResolution.md)
  - [Error](docs/Error.md)
  - [EventsEndpoints](docs/EventsEndpoints.md)
- - [ExtendedInstallmentPlan](docs/ExtendedInstallmentPlan.md)
- - [ExtendedInstallmentPlanAllOf](docs/ExtendedInstallmentPlanAllOf.md)
  - [ExternalAuth](docs/ExternalAuth.md)
  - [FraudCheck](docs/FraudCheck.md)
  - [FraudCheckResult](docs/FraudCheckResult.md)
@@ -229,7 +226,6 @@ Class | Method | HTTP request | Description
  - [GetInitiatedInstallmentPlanRequest](docs/GetInitiatedInstallmentPlanRequest.md)
  - [GetInitiatedInstallmentPlanResponse](docs/GetInitiatedInstallmentPlanResponse.md)
  - [GetInstallmentsPlanExtendedResponse](docs/GetInstallmentsPlanExtendedResponse.md)
- - [GetInstallmentsPlanExtendedResponseAllOf](docs/GetInstallmentsPlanExtendedResponseAllOf.md)
  - [GetInstallmentsPlanResponse](docs/GetInstallmentsPlanResponse.md)
  - [GetInstallmentsPlanSearchCriteriaRequest](docs/GetInstallmentsPlanSearchCriteriaRequest.md)
  - [GetResourcesRequest](docs/GetResourcesRequest.md)

@@ -10,8 +10,8 @@
 package splitit
 // MerchantRef struct for MerchantRef
 type MerchantRef struct {
-	Id int64 `json:"Id"`
-	Code string `json:"Code,omitempty"`
-	Description string `json:"Description,omitempty"`
-	Name string `json:"Name,omitempty"`
+	Id int64 `json:"Id"` 
+	Code string `json:"Code,omitempty"` 
+	Description string `json:"Description,omitempty"` 
+	Name string `json:"Name,omitempty"` 
 }

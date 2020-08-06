@@ -13,7 +13,7 @@ import (
 )
 // PlanApprovalEvidence struct for PlanApprovalEvidence
 type PlanApprovalEvidence struct {
-	CustomerSignaturePngAsBase64 string `json:"CustomerSignaturePngAsBase64,omitempty"`
-	AreTermsAndConditionsApproved bool `json:"AreTermsAndConditionsApproved"`
-	ShopperApprovalDateTime *SplititTime `json:"ShopperApprovalDateTime,omitempty"`
+	CustomerSignaturePngAsBase64 string `json:"CustomerSignaturePngAsBase64,omitempty"` 
+	AreTermsAndConditionsApproved bool `json:"AreTermsAndConditionsApproved"` 
+	ShopperApprovalDateTime *SplititTime `json:"ShopperApprovalDateTime,omitempty"` 
 }

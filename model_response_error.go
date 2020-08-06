@@ -10,7 +10,7 @@
 package splitit
 // ResponseError struct for ResponseError
 type ResponseError struct {
-	ErrorCode string `json:"ErrorCode,omitempty"`
-	FieldName string `json:"FieldName,omitempty"`
-	Message string `json:"Message,omitempty"`
+	ErrorCode string `json:"ErrorCode,omitempty"` 
+	FieldName string `json:"FieldName,omitempty"` 
+	Message string `json:"Message,omitempty"` 
 }

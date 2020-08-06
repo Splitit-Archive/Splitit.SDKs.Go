@@ -10,13 +10,13 @@
 package splitit
 // GetInitiatedInstallmentPlanResponse struct for GetInitiatedInstallmentPlanResponse
 type GetInitiatedInstallmentPlanResponse struct {
-	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"`
-	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"`
-	PlanData *PlanData `json:"PlanData,omitempty"`
-	CartData *CartData `json:"CartData,omitempty"`
-	ConsumerData *ConsumerData `json:"ConsumerData,omitempty"`
-	MerchantData *MerchantRef `json:"MerchantData,omitempty"`
-	BillingAddress *AddressData `json:"BillingAddress,omitempty"`
-	PaymentWizardDataResponse *PaymentWizardDataResponse `json:"PaymentWizardDataResponse,omitempty"`
-	ErrorIndicator *Error `json:"ErrorIndicator,omitempty"`
+	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"` 
+	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"` 
+	PlanData *PlanData `json:"PlanData,omitempty"` 
+	CartData *CartData `json:"CartData,omitempty"` 
+	ConsumerData *ConsumerData `json:"ConsumerData,omitempty"` 
+	MerchantData *MerchantRef `json:"MerchantData,omitempty"` 
+	BillingAddress *AddressData `json:"BillingAddress,omitempty"` 
+	PaymentWizardDataResponse *PaymentWizardDataResponse `json:"PaymentWizardDataResponse,omitempty"` 
+	ErrorIndicator *Error `json:"ErrorIndicator,omitempty"` 
 }

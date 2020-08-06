@@ -10,11 +10,11 @@
 package splitit
 // AddressData2 struct for AddressData2
 type AddressData2 struct {
-	AddressLine string `json:"AddressLine,omitempty"`
-	AddressLine2 string `json:"AddressLine2,omitempty"`
-	City string `json:"City,omitempty"`
-	Country string `json:"Country,omitempty"`
-	State string `json:"State,omitempty"`
-	Zip string `json:"Zip,omitempty"`
-	FullAddressLine string `json:"FullAddressLine,omitempty"`
+	AddressLine string `json:"AddressLine,omitempty"` 
+	AddressLine2 string `json:"AddressLine2,omitempty"` 
+	City string `json:"City,omitempty"` 
+	Country string `json:"Country,omitempty"` 
+	State string `json:"State,omitempty"` 
+	Zip string `json:"Zip,omitempty"` 
+	FullAddressLine string `json:"FullAddressLine,omitempty"` 
 }

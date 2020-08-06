@@ -10,7 +10,7 @@
 package splitit
 // ResponseHeader struct for ResponseHeader
 type ResponseHeader struct {
-	Succeeded bool `json:"Succeeded"`
-	Errors *[]Error `json:"Errors,omitempty"`
-	TraceId string `json:"TraceId,omitempty"`
+	Succeeded bool `json:"Succeeded"` 
+	Errors []Error `json:"Errors,omitempty"` 
+	TraceId string `json:"TraceId,omitempty"` 
 }

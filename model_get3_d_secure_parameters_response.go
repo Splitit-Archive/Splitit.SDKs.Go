@@ -10,9 +10,9 @@
 package splitit
 // Get3DSecureParametersResponse struct for Get3DSecureParametersResponse
 type Get3DSecureParametersResponse struct {
-	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"`
-	IssuerRedirectUrl string `json:"IssuerRedirectUrl,omitempty"`
-	PaReq string `json:"PaReq,omitempty"`
-	Md string `json:"Md,omitempty"`
-	TermUrl string `json:"TermUrl,omitempty"`
+	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"` 
+	IssuerRedirectUrl string `json:"IssuerRedirectUrl,omitempty"` 
+	PaReq string `json:"PaReq,omitempty"` 
+	Md string `json:"Md,omitempty"` 
+	TermUrl string `json:"TermUrl,omitempty"` 
 }

@@ -10,6 +10,6 @@
 package splitit
 // LoginResponse2 struct for LoginResponse2
 type LoginResponse2 struct {
-	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"`
-	SessionId string `json:"SessionId,omitempty"`
+	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"` 
+	SessionId string `json:"SessionId,omitempty"` 
 }

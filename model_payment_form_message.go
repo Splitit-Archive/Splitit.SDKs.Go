@@ -10,8 +10,8 @@
 package splitit
 // PaymentFormMessage struct for PaymentFormMessage
 type PaymentFormMessage struct {
-	Type *PaymentFormMessageType `json:"Type"`
-	Code int32 `json:"Code"`
-	Message string `json:"Message,omitempty"`
-	IsEmpty bool `json:"IsEmpty"`
+	Type PaymentFormMessageType `json:"Type"` 
+	Code int32 `json:"Code"` 
+	Message string `json:"Message,omitempty"` 
+	IsEmpty bool `json:"IsEmpty"` 
 }

@@ -10,6 +10,6 @@
 package splitit
 // CartData struct for CartData
 type CartData struct {
-	Items *[]ItemData `json:"Items,omitempty"`
-	AmountDetails *AmountDetails `json:"AmountDetails,omitempty"`
+	Items []ItemData `json:"Items,omitempty"` 
+	AmountDetails *AmountDetails `json:"AmountDetails,omitempty"` 
 }

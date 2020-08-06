@@ -10,9 +10,9 @@
 package splitit
 // ItemData struct for ItemData
 type ItemData struct {
-	Name string `json:"Name,omitempty"`
-	Sku string `json:"Sku,omitempty"`
-	Price *MoneyWithCurrencyCode `json:"Price,omitempty"`
-	Quantity float64 `json:"Quantity"`
-	Description string `json:"Description,omitempty"`
+	Name string `json:"Name,omitempty"` 
+	Sku string `json:"Sku,omitempty"` 
+	Price *MoneyWithCurrencyCode `json:"Price,omitempty"` 
+	Quantity float64 `json:"Quantity"` 
+	Description string `json:"Description,omitempty"` 
 }

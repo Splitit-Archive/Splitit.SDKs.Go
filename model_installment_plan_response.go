@@ -10,6 +10,6 @@
 package splitit
 // InstallmentPlanResponse struct for InstallmentPlanResponse
 type InstallmentPlanResponse struct {
-	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"`
-	InstallmentPlan *InstallmentPlan `json:"InstallmentPlan,omitempty"`
+	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"` 
+	InstallmentPlan *InstallmentPlan `json:"InstallmentPlan,omitempty"` 
 }

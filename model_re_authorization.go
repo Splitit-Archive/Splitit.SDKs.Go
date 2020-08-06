@@ -13,9 +13,9 @@ import (
 )
 // ReAuthorization struct for ReAuthorization
 type ReAuthorization struct {
-	ProcessingDate *SplititTime `json:"ProcessingDate,omitempty"`
-	Amount *Money `json:"Amount,omitempty"`
-	TransactionResults *[]TransactionResult `json:"TransactionResults,omitempty"`
-	CardDetails *CardData `json:"CardDetails,omitempty"`
-	Result bool `json:"Result,omitempty"`
+	ProcessingDate *SplititTime `json:"ProcessingDate,omitempty"` 
+	Amount *Money `json:"Amount,omitempty"` 
+	TransactionResults []TransactionResult `json:"TransactionResults,omitempty"` 
+	CardDetails *CardData `json:"CardDetails,omitempty"` 
+	Result bool `json:"Result,omitempty"` 
 }

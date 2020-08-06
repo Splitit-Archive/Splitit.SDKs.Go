@@ -10,8 +10,8 @@
 package splitit
 // TouchPoint struct for TouchPoint
 type TouchPoint struct {
-	Code string `json:"Code,omitempty"`
-	Version string `json:"Version,omitempty"`
-	SubVersion string `json:"SubVersion,omitempty"`
-	VersionedTouchpointId int64 `json:"VersionedTouchpointId,omitempty"`
+	Code string `json:"Code,omitempty"` 
+	Version string `json:"Version,omitempty"` 
+	SubVersion string `json:"SubVersion,omitempty"` 
+	VersionedTouchpointId int64 `json:"VersionedTouchpointId,omitempty"` 
 }

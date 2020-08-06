@@ -10,8 +10,8 @@
 package splitit
 // CancelInstallmentPlanRequest struct for CancelInstallmentPlanRequest
 type CancelInstallmentPlanRequest struct {
-	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"`
-	RefundUnderCancelation *RefundUnderCancelation `json:"RefundUnderCancelation"`
-	CancelationReason *InstallmentPlanCancelationReason `json:"CancelationReason"`
-	IsExecutedUnattended bool `json:"IsExecutedUnattended"`
+	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"` 
+	RefundUnderCancelation RefundUnderCancelation `json:"RefundUnderCancelation"` 
+	CancelationReason InstallmentPlanCancelationReason `json:"CancelationReason"` 
+	IsExecutedUnattended bool `json:"IsExecutedUnattended"` 
 }

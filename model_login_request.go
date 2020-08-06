@@ -10,7 +10,7 @@
 package splitit
 // LoginRequest struct for LoginRequest
 type LoginRequest struct {
-	UserName string `json:"UserName,omitempty"`
-	Password string `json:"Password,omitempty"`
-	TouchPoint *TouchPoint `json:"TouchPoint,omitempty"`
+	UserName string `json:"UserName,omitempty"` 
+	Password string `json:"Password,omitempty"` 
+	TouchPoint *TouchPoint `json:"TouchPoint,omitempty"` 
 }

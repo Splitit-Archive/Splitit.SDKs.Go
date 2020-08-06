@@ -10,8 +10,8 @@
 package splitit
 // ResponseStatus struct for ResponseStatus
 type ResponseStatus struct {
-	ErrorCode string `json:"ErrorCode,omitempty"`
-	Message string `json:"Message,omitempty"`
-	StackTrace string `json:"StackTrace,omitempty"`
-	Errors *[]ResponseError `json:"Errors,omitempty"`
+	ErrorCode string `json:"ErrorCode,omitempty"` 
+	Message string `json:"Message,omitempty"` 
+	StackTrace string `json:"StackTrace,omitempty"` 
+	Errors []ResponseError `json:"Errors,omitempty"` 
 }

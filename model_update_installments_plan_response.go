@@ -10,7 +10,7 @@
 package splitit
 // UpdateInstallmentsPlanResponse struct for UpdateInstallmentsPlanResponse
 type UpdateInstallmentsPlanResponse struct {
-	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"`
-	InstallmentPlan *InstallmentPlan `json:"InstallmentPlan,omitempty"`
-	ApprovalUrl string `json:"ApprovalUrl,omitempty"`
+	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"` 
+	InstallmentPlan *InstallmentPlan `json:"InstallmentPlan,omitempty"` 
+	ApprovalUrl string `json:"ApprovalUrl,omitempty"` 
 }

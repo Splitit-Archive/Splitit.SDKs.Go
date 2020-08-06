@@ -10,13 +10,13 @@
 package splitit
 // User struct for User
 type User struct {
-	Id string `json:"Id,omitempty"`
-	UserName string `json:"UserName,omitempty"`
-	FullName string `json:"FullName,omitempty"`
-	Email string `json:"Email,omitempty"`
-	PhoneNumber string `json:"PhoneNumber,omitempty"`
-	CultureName string `json:"CultureName,omitempty"`
-	RoleName string `json:"RoleName,omitempty"`
-	IsLocked bool `json:"IsLocked"`
-	IsDataRestricted bool `json:"IsDataRestricted"`
+	Id string `json:"Id,omitempty"` 
+	UserName string `json:"UserName,omitempty"` 
+	FullName string `json:"FullName,omitempty"` 
+	Email string `json:"Email,omitempty"` 
+	PhoneNumber string `json:"PhoneNumber,omitempty"` 
+	CultureName string `json:"CultureName,omitempty"` 
+	RoleName string `json:"RoleName,omitempty"` 
+	IsLocked bool `json:"IsLocked"` 
+	IsDataRestricted bool `json:"IsDataRestricted"` 
 }

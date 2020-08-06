@@ -10,7 +10,7 @@
 package splitit
 // ChargebackRequest struct for ChargebackRequest
 type ChargebackRequest struct {
-	TransactionIdsToMark []int64 `json:"TransactionIdsToMark,omitempty"`
-	TransactionIdsToUnmark []int64 `json:"TransactionIdsToUnmark,omitempty"`
-	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"`
+	TransactionIdsToMark []int64 `json:"TransactionIdsToMark,omitempty"` 
+	TransactionIdsToUnmark []int64 `json:"TransactionIdsToUnmark,omitempty"` 
+	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"` 
 }

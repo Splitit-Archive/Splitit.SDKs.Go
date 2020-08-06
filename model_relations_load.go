@@ -10,6 +10,6 @@
 package splitit
 // RelationsLoad struct for RelationsLoad
 type RelationsLoad struct {
-	Installments *InstallmentPlanActivityStatus `json:"Installments"`
-	SecureAuthorizations *InstallmentPlanActivityStatus `json:"SecureAuthorizations"`
+	Installments InstallmentPlanActivityStatus `json:"Installments"` 
+	SecureAuthorizations InstallmentPlanActivityStatus `json:"SecureAuthorizations"` 
 }

@@ -10,6 +10,6 @@
 package splitit
 // TermsAndConditionsGetResponse struct for TermsAndConditionsGetResponse
 type TermsAndConditionsGetResponse struct {
-	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"`
-	TermsAndConditions *TermsAndConditions `json:"TermsAndConditions,omitempty"`
+	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"` 
+	TermsAndConditions *TermsAndConditions `json:"TermsAndConditions,omitempty"` 
 }

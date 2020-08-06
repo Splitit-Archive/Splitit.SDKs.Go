@@ -10,6 +10,6 @@
 package splitit
 // MoneyWithCurrencyCode struct for MoneyWithCurrencyCode
 type MoneyWithCurrencyCode struct {
-	Value float64 `json:"Value"`
-	CurrencyCode string `json:"CurrencyCode,omitempty"`
+	Value float64 `json:"Value"` 
+	CurrencyCode string `json:"CurrencyCode,omitempty"` 
 }

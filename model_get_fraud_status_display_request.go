@@ -10,7 +10,7 @@
 package splitit
 // GetFraudStatusDisplayRequest struct for GetFraudStatusDisplayRequest
 type GetFraudStatusDisplayRequest struct {
-	ProviderReferenceId string `json:"ProviderReferenceId,omitempty"`
-	MerchantId int64 `json:"MerchantId,omitempty"`
-	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"`
+	ProviderReferenceId string `json:"ProviderReferenceId,omitempty"` 
+	MerchantId int64 `json:"MerchantId,omitempty"` 
+	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"` 
 }

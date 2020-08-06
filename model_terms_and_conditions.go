@@ -10,11 +10,11 @@
 package splitit
 // TermsAndConditions struct for TermsAndConditions
 type TermsAndConditions struct {
-	Agreement string `json:"Agreement,omitempty"`
-	ImportantNote string `json:"ImportantNote,omitempty"`
-	FullContent string `json:"FullContent,omitempty"`
-	PrivacyPolicy string `json:"PrivacyPolicy,omitempty"`
-	WhatYouNeedToKnowAuthHoldDefine string `json:"WhatYouNeedToKnow_AuthHoldDefine,omitempty"`
-	WhatYouNeedToKnowBudgetManagement string `json:"WhatYouNeedToKnow_BudgetManagement,omitempty"`
-	WhatYouNeedToKnowCardTypeDetails string `json:"WhatYouNeedToKnow_CardTypeDetails,omitempty"`
+	Agreement string `json:"Agreement,omitempty"` 
+	ImportantNote string `json:"ImportantNote,omitempty"` 
+	FullContent string `json:"FullContent,omitempty"` 
+	PrivacyPolicy string `json:"PrivacyPolicy,omitempty"` 
+	WhatYouNeedToKnowAuthHoldDefine string `json:"WhatYouNeedToKnow_AuthHoldDefine,omitempty"` 
+	WhatYouNeedToKnowBudgetManagement string `json:"WhatYouNeedToKnow_BudgetManagement,omitempty"` 
+	WhatYouNeedToKnowCardTypeDetails string `json:"WhatYouNeedToKnow_CardTypeDetails,omitempty"` 
 }

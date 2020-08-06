@@ -38,4 +38,5 @@ const (
 	SYSTEMTEXTCATEGORY_PAYMENT_FORM_V3 SystemTextCategory = "PaymentFormV3"
 	SYSTEMTEXTCATEGORY_HOW_SPLITIT_WORKS SystemTextCategory = "HowSplititWorks"
 	SYSTEMTEXTCATEGORY_UPSTREAM_MESSAGING SystemTextCategory = "UpstreamMessaging"
+	SYSTEMTEXTCATEGORY_ONBOARDING SystemTextCategory = "Onboarding"
 )

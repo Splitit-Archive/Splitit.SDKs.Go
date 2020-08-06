@@ -13,16 +13,16 @@ import (
 )
 // Installment2 struct for Installment2
 type Installment2 struct {
-	InstallmentNumber int32 `json:"InstallmentNumber"`
-	Amount *Money `json:"Amount,omitempty"`
-	OriginalAmount *Money `json:"OriginalAmount,omitempty"`
-	RefundAmount *Money `json:"RefundAmount,omitempty"`
-	ProcessDateTime *SplititTime `json:"ProcessDateTime,omitempty"`
-	IsRefund bool `json:"IsRefund"`
-	RequiredCredit *Money `json:"RequiredCredit,omitempty"`
-	CreatedDateTime *SplititTime `json:"CreatedDateTime"`
-	Status *ReferenceEntityBase `json:"Status,omitempty"`
-	TransactionResults *[]TransactionResult `json:"TransactionResults,omitempty"`
-	CardDetails *CardData `json:"CardDetails,omitempty"`
-	Result bool `json:"Result,omitempty"`
+	InstallmentNumber int32 `json:"InstallmentNumber"` 
+	Amount *Money `json:"Amount,omitempty"` 
+	OriginalAmount *Money `json:"OriginalAmount,omitempty"` 
+	RefundAmount *Money `json:"RefundAmount,omitempty"` 
+	ProcessDateTime *SplititTime `json:"ProcessDateTime,omitempty"` 
+	IsRefund bool `json:"IsRefund"` 
+	RequiredCredit *Money `json:"RequiredCredit,omitempty"` 
+	CreatedDateTime *SplititTime `json:"CreatedDateTime"` 
+	Status *ReferenceEntityBase `json:"Status,omitempty"` 
+	TransactionResults []TransactionResult `json:"TransactionResults,omitempty"` 
+	CardDetails *CardData `json:"CardDetails,omitempty"` 
+	Result bool `json:"Result,omitempty"` 
 }

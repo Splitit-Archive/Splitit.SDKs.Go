@@ -10,6 +10,6 @@
 package splitit
 // LearnMoreDetailsRequest struct for LearnMoreDetailsRequest
 type LearnMoreDetailsRequest struct {
-	Amount *MoneyWithCurrencyCode `json:"Amount,omitempty"`
-	NumberOfInstallments int32 `json:"NumberOfInstallments,omitempty"`
+	Amount *MoneyWithCurrencyCode `json:"Amount,omitempty"` 
+	NumberOfInstallments int32 `json:"NumberOfInstallments,omitempty"` 
 }

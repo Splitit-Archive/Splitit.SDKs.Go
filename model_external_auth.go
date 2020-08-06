@@ -13,8 +13,8 @@ import (
 )
 // ExternalAuth struct for ExternalAuth
 type ExternalAuth struct {
-	UniqueGatewayAuthID string `json:"UniqueGatewayAuthID,omitempty"`
-	Date *SplititTime `json:"Date"`
-	Amount *MoneyWithCurrencyCode `json:"Amount,omitempty"`
-	TransactionFullLog string `json:"TransactionFullLog,omitempty"`
+	UniqueGatewayAuthID string `json:"UniqueGatewayAuthID,omitempty"` 
+	Date *SplititTime `json:"Date"` 
+	Amount *MoneyWithCurrencyCode `json:"Amount,omitempty"` 
+	TransactionFullLog string `json:"TransactionFullLog,omitempty"` 
 }

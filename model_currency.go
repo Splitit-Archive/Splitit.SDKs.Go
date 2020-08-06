@@ -10,8 +10,8 @@
 package splitit
 // Currency struct for Currency
 type Currency struct {
-	Id int64 `json:"Id"`
-	Code string `json:"Code,omitempty"`
-	Description string `json:"Description,omitempty"`
-	Symbol string `json:"Symbol,omitempty"`
+	Id int64 `json:"Id"` 
+	Code string `json:"Code,omitempty"` 
+	Description string `json:"Description,omitempty"` 
+	Symbol string `json:"Symbol,omitempty"` 
 }

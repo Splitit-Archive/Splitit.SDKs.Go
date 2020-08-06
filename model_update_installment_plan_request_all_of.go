@@ -10,5 +10,5 @@
 package splitit
 // UpdateInstallmentPlanRequestAllOf struct for UpdateInstallmentPlanRequestAllOf
 type UpdateInstallmentPlanRequestAllOf struct {
-	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"`
+	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"` 
 }
