@@ -23,3 +23,8 @@ func (d SplititTime) MarshalJSON() ([]byte, error) {
 	t := time.Time(d)
 	return t.MarshalJSON()
 }
+
+func NewSplititTime(t time.Time) *SplititTime {
+	st := SplititTime(t)
+	return &st
+}

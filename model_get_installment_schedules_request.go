@@ -8,10 +8,9 @@
  */
 
 package splitit
-// ChargebackRequest struct for ChargebackRequest
-type ChargebackRequest struct {
-	TransactionIdsToMark []int64 `json:"TransactionIdsToMark,omitempty"` 
-	TransactionIdsToUnmark []int64 `json:"TransactionIdsToUnmark,omitempty"` 
+// GetInstallmentSchedulesRequest struct for GetInstallmentSchedulesRequest
+type GetInstallmentSchedulesRequest struct {
 	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"` 
-	PartialResponseMapping bool `json:"PartialResponseMapping"` 
+	Amount *MoneyWithCurrencyCode `json:"Amount,omitempty"` 
+	CardNumber string `json:"CardNumber,omitempty"` 
 }

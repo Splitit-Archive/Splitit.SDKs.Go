@@ -12,5 +12,6 @@ package splitit
 type RefundInstallmentPlanResponse struct {
 	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"` 
 	InstallmentPlan *InstallmentPlan `json:"InstallmentPlan,omitempty"` 
+	GatewayTransactionResults []TransactionResult `json:"GatewayTransactionResults,omitempty"` 
 	CurrentRefundAmount *Money `json:"CurrentRefundAmount,omitempty"` 
 }

@@ -75,7 +75,34 @@ func (a implInfrastructureApiService) InfrastructureGetResources(ctx _context.Co
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*GetResourcesRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		GetResourcesRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -120,6 +147,17 @@ func (a implInfrastructureApiService) InfrastructureGetResources(ctx _context.Co
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InfrastructureGetResources(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
@@ -263,6 +301,17 @@ func (a implInfrastructureApiService) InfrastructureGetResources2(ctx _context.C
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InfrastructureGetResources2(ctx , localVarOptionals)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,

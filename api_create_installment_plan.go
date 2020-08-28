@@ -200,6 +200,17 @@ func (a implCreateInstallmentPlanApiService) CreateInstallmentPlanGet(ctx _conte
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.CreateInstallmentPlanGet(ctx , localVarOptionals)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,

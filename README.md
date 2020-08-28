@@ -5,7 +5,7 @@ This is Splitit Web API SDK source code for Go applications. For other languages
 ## Overview
 
 - API version: 1.0.0
-- Package version: 1.5.10
+- Package version: 1.5.11
 
 ## Installation
 
@@ -28,96 +28,87 @@ go get github.com/splitit/splitit.sdks.go
 
 ## Getting Started
 
-Replace _YOUR_SANDBOX_API_KEY_, _YOUR_PRODUCTION_API_KEY_, _YOUR_USERNAME_ and _YOUR_PASSWORD_ placeholders with your corresponding credentials.
+Replace _YOUR_API_KEY_, _YOUR_USERNAME_ and _YOUR_PASSWORD_ placeholders with your corresponding credentials.
 Please install required packages as described above and then run the following:
 
 ```go
 package main
 
 import (
-    _context "context"
-    "fmt"
-    "os"
-    "strconv"
-    "time"
-    "github.com/splitit/splitit.sdks.go"
+	"context"
+	"fmt"
+	"os"
+
+	"github.com/splitit/splitit.sdks.go"
 )
 
 func main() {
-    // Shared configuration instance for sandbox and production environment
-    splitit.Sandbox.AddApiKey("_YOUR_SANDBOX_API_KEY_")
-    splitit.Default.AddApiKey("_YOUR_PRODUCTION_API_KEY_")
+	// Recommended to have one shared client
+	// Use splitit.NewSandboxAPIClient for development and splitit.NewAPIClient in production
+	client := splitit.NewSandboxAPIClient(
+		"_YOUR_API_KEY_",
+		"_YOUR_USERNAME_",
+		"_YOUR_PASSWORD_",
+		// Supply optional configuration
+		// splitit.Debug(), // print out full request and response
+		splitit.DefaultCulture("en-US"),
+	)
 
-    // use this to print out full request and response, for debugging purposes
-    //splitit.Sandbox.Debug = true 
+	ctx := context.TODO()
 
-    // Recommended to have one shared client, initialize with either Sandbox or Production (Default)
-    client := splitit.NewAPIClient(splitit.Sandbox)
+	// Create initiate request
+	initReq := splitit.InitiateInstallmentPlanRequest{
+		PlanData: &splitit.PlanData{
+			Amount: &splitit.MoneyWithCurrencyCode{300, "USD"},
+			NumberOfInstallments: 3,
+		},
+		BillingAddress: &splitit.AddressData{
+			AddressLine:  "260 Madison Avenue.",
+			AddressLine2: "Apartment 1",
+			City:         "New York",
+			State:        "NY",
+			Country:      "USA",
+			Zip:          "10016",
+		},
+		ConsumerData: &splitit.ConsumerData{
+			FullName:    "John Smith",
+			Email:       "JohnGo@splitit.com",
+			PhoneNumber: "1-415-775-4848",
+			CultureName: "en-us",
+		},
+	}
 
-    // Perform login, get sessionId
-    loginResponse, _, _ := client.LoginApi.LoginPost(_context.Background(), splitit.LoginRequest{
-        UserName: "_YOUR_USERNAME_",
-        Password: "_YOUR_PASSWORD_",
-    })
+	initResponse, _, err := client.InstallmentPlanApi.InstallmentPlanInitiate(
+		// DefaultCulture could be overridden on per-request basis:
+		splitit.WithCulture(ctx, "en-GB"),
+		initReq,
+	)
 
-    // Set session id to current context
-    ctx := _context.WithValue(_context.Background(), "splitit.context", splitit.SplititRequestContext{
-        Culture:   "en-US",
-        SessionId: loginResponse.SessionId,
-    })
+	if err != nil {
+		fmt.Printf("Error during initiate: %s\n", err)
+		os.Exit(1)
+	} else {
+		fmt.Printf("Initiate success: %t\n", initResponse.ResponseHeader.Succeeded)
+	}
 
-    // Create initiate request
-    initReq := splitit.InitiateInstallmentPlanRequest{
-        PlanData: &splitit.PlanData{
-            Amount: &splitit.MoneyWithCurrencyCode{
-                Value:        300,
-                CurrencyCode: "USD",
-            },
-            NumberOfInstallments: 6,
-        },
-        BillingAddress: &splitit.AddressData{
-            AddressLine:  "260 Madison Avenue.",
-            AddressLine2: "Appartment 1",
-            City:         "New York",
-            State:        "NY",
-            Country:      "USA",
-            Zip:          "10016",
-        },
-        ConsumerData: &splitit.ConsumerData{
-            FullName:    "John Smith",
-            Email:       "JohnGo@splitit.com",
-            PhoneNumber: "1-844-775-4848",
-            CultureName: "en-us",
-        },
-    }
+	createReq := splitit.CreateInstallmentPlanRequest{
+		CreditCardDetails: &splitit.CardData{
+			CardNumber:         "411111111111111",
+			CardCvv:            "111",
+			CardHolderFullName: "John Smith",
+			CardExpMonth:       "12",
+			CardExpYear:        "2022",
+		},
+		InstallmentPlanNumber: initResponse.InstallmentPlan.InstallmentPlanNumber,
+	}
 
-    initResponse, _, err := client.InstallmentPlanApi.InstallmentPlanInitiate(ctx, initReq)
+	createResponse, _, err := client.InstallmentPlanApi.InstallmentPlanCreate(ctx, createReq)
 
-    if err != nil {
-        fmt.Println("Error during initiate: " + err.Error())
-        os.Exit(1)
-    } else {
-        fmt.Println("Initiate success: " + strconv.FormatBool(initResponse.ResponseHeader.Succeeded))
-    }
-
-    createReq := splitit.CreateInstallmentPlanRequest{
-        CreditCardDetails: &splitit.CardData{
-            CardNumber:         "411111111111111",
-            CardCvv:            "111",
-            CardHolderFullName: "John Smith",
-            CardExpMonth:       "12",
-            CardExpYear:        "2022",
-        },
-        InstallmentPlanNumber: initResponse.InstallmentPlan.InstallmentPlanNumber,
-    }
-
-    createResponse, _, err := client.InstallmentPlanApi.InstallmentPlanCreate(ctx, createReq)
-
-    if err != nil {
-        fmt.Println("Create error: " + err.Error())
-    } else {
-        fmt.Println("Create success: " + strconv.FormatBool(createResponse.ResponseHeader.Succeeded))
-    }
+	if err != nil {
+		fmt.Printf("Create error: %s\n", err)
+	} else {
+		fmt.Printf("Create success: %t\t", createResponse.ResponseHeader.Succeeded)
+	}
 }
 
 ```
@@ -128,39 +119,44 @@ Common usage for Splitit PHP SDK is in making necessary server-side requests as 
 The code below is an example of how SDK wrappers can be used to simplify acquiring public token and verifying payment.
 For more information, please visit [FlexFields documentation](https://flex-fields.production.splitit.com/#php).
 
-Server-side code consists of two parts: acquiring public token which needs to be passed to FlexFields JS library 
+Server-side code consists of two parts: acquiring public token which needs to be passed to FlexFields JS library
 and verifying payment before order is finalized and shipped.
 
 ### Getting public token
 ```go
-func get_flexfields_public_token() {
+func get_flexfields_public_token() string {
+	ctx := context.TODO()
 
-    splitit.Sandbox.AddApiKey("_YOUR_SANDBOX_API_KEY_")
-    splitit.Default.AddApiKey("_YOUR_PRODUCTION_API_KEY_")
+	client := splitit.NewSandboxAPIClient(
+		"_YOUR_API_KEY_",
+		"_YOUR_USERNAME_",
+		"_YOUR_PASSWORD_",
+		splitit.DefaultCulture("en-US"),
+	)
 
-    client := splitit.NewAPIClient(splitit.Sandbox)
-
-    ff, err := splitit.FlexFieldsAuthenticate(_context.Background(), client, "_YOUR_USERNAME_", "_YOUR_PASSWORD_")
-    token, err := ff.GetPublicToken(350, "USD")
-    return token
+	ff := splitit.NewFlexFields(client)
+	token, _ := ff.GetPublicToken(ctx, 350, "USD")
+	return token
 }
 ```
 
 ### Payment verification
 ```go
-func verify_payment(planNumber, originalAmount) {
+func verify_payment(planNumber string, originalAmount float64) {
+	ctx := context.TODO()
 
-    splitit.Sandbox.AddApiKey("_YOUR_SANDBOX_API_KEY_")
-    splitit.Default.AddApiKey("_YOUR_PRODUCTION_API_KEY_")
+	client := splitit.NewSandboxAPIClient(
+		"_YOUR_API_KEY_",
+		"_YOUR_USERNAME_",
+		"_YOUR_PASSWORD_",
+	)
 
-    client := splitit.NewAPIClient(splitit.Sandbox)
+	ff := splitit.NewFlexFields(client)
+	isVerified, _ := ff.VerifyPayment(ctx, planNumber, originalAmount)
 
-    ff, err := splitit.FlexFieldsAuthenticate(_context.Background(), client, "_YOUR_USERNAME_", "_YOUR_PASSWORD_")
-    isVerified, err := ff.VerifyPayment(planNumber, originalAmount)
-
-    if !isVerified {
-        // Respond to potential fraud attempt.
-    }
+	if !isVerified {
+		// Respond to potential fraud attempt.
+	}
 }
 ```
 
@@ -185,6 +181,7 @@ Class | Method | HTTP request | Description
 *InstallmentPlanApi* | [**InstallmentPlanGetFraudStatusDisplay**](docs/InstallmentPlanApi.md#installmentplangetfraudstatusdisplay) | **Post** /api/InstallmentPlan/GetFraudStatusDisplay | 
 *InstallmentPlanApi* | [**InstallmentPlanGetInitiatedInstallmentPlanRequest**](docs/InstallmentPlanApi.md#installmentplangetinitiatedinstallmentplanrequest) | **Post** /api/InstallmentPlan/GetInitiatedInstallmentPlanRequest | 
 *InstallmentPlanApi* | [**InstallmentPlanGetLearnMoreDetails**](docs/InstallmentPlanApi.md#installmentplangetlearnmoredetails) | **Post** /api/InstallmentPlan/GetLearnMoreDetails | 
+*InstallmentPlanApi* | [**InstallmentPlanGetSchedules**](docs/InstallmentPlanApi.md#installmentplangetschedules) | **Post** /api/InstallmentPlan/GetSchedules | 
 *InstallmentPlanApi* | [**InstallmentPlanInitiate**](docs/InstallmentPlanApi.md#installmentplaninitiate) | **Post** /api/InstallmentPlan/Initiate | 
 *InstallmentPlanApi* | [**InstallmentPlanRefund**](docs/InstallmentPlanApi.md#installmentplanrefund) | **Post** /api/InstallmentPlan/Refund | 
 *InstallmentPlanApi* | [**InstallmentPlanStartInstallments**](docs/InstallmentPlanApi.md#installmentplanstartinstallments) | **Post** /api/InstallmentPlan/StartInstallments | 
@@ -204,6 +201,7 @@ Class | Method | HTTP request | Description
  - [AuthenticationType](docs/AuthenticationType.md)
  - [CancelInstallmentPlanRequest](docs/CancelInstallmentPlanRequest.md)
  - [CardData](docs/CardData.md)
+ - [CardResult](docs/CardResult.md)
  - [CartData](docs/CartData.md)
  - [ChargebackRequest](docs/ChargebackRequest.md)
  - [ConsumerData](docs/ConsumerData.md)
@@ -225,9 +223,11 @@ Class | Method | HTTP request | Description
  - [GetFraudStatusDisplayResponse](docs/GetFraudStatusDisplayResponse.md)
  - [GetInitiatedInstallmentPlanRequest](docs/GetInitiatedInstallmentPlanRequest.md)
  - [GetInitiatedInstallmentPlanResponse](docs/GetInitiatedInstallmentPlanResponse.md)
+ - [GetInstallmentSchedulesRequest](docs/GetInstallmentSchedulesRequest.md)
  - [GetInstallmentsPlanExtendedResponse](docs/GetInstallmentsPlanExtendedResponse.md)
  - [GetInstallmentsPlanResponse](docs/GetInstallmentsPlanResponse.md)
  - [GetInstallmentsPlanSearchCriteriaRequest](docs/GetInstallmentsPlanSearchCriteriaRequest.md)
+ - [GetInstallmentsScheduleResponse](docs/GetInstallmentsScheduleResponse.md)
  - [GetResourcesRequest](docs/GetResourcesRequest.md)
  - [GetResourcesRequestContext](docs/GetResourcesRequestContext.md)
  - [GetResourcesResponse](docs/GetResourcesResponse.md)
@@ -281,6 +281,8 @@ Class | Method | HTTP request | Description
  - [ResponseError](docs/ResponseError.md)
  - [ResponseHeader](docs/ResponseHeader.md)
  - [ResponseStatus](docs/ResponseStatus.md)
+ - [Schedule](docs/Schedule.md)
+ - [ScheduleElements](docs/ScheduleElements.md)
  - [StartInstallmentsRequest](docs/StartInstallmentsRequest.md)
  - [SystemTextCategory](docs/SystemTextCategory.md)
  - [TermsAndConditions](docs/TermsAndConditions.md)

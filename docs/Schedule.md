@@ -1,13 +1,12 @@
-# ChargebackRequest
+# Schedule
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TransactionIdsToMark** | **[]int64** |  | [optional] 
-**TransactionIdsToUnmark** | **[]int64** |  | [optional] 
-**InstallmentPlanNumber** | **string** |  | [optional] 
-**PartialResponseMapping** | **bool** |  | 
+**NumberOfInstallments** | **int32** |  | 
+**Deposit** | **bool** |  | 
+**Elements** | [**[]ScheduleElements**](ScheduleElements.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -21,4 +21,6 @@ type TransactionResult struct {
 	GatewayResult bool `json:"GatewayResult"` 
 	GatewayTransactionDate *SplititTime `json:"GatewayTransactionDate"` 
 	IsChargeback bool `json:"IsChargeback"` 
+	AVSResult *CardResult `json:"AVSResult,omitempty"` 
+	CVCResult *CardResult `json:"CVCResult,omitempty"` 
 }

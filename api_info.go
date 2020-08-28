@@ -72,7 +72,34 @@ func (a implInfoApiService) InfoGetLearnMoreDetails(ctx _context.Context, reques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*LearnMoreDetailsRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		LearnMoreDetailsRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -117,6 +144,17 @@ func (a implInfoApiService) InfoGetLearnMoreDetails(ctx _context.Context, reques
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InfoGetLearnMoreDetails(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,

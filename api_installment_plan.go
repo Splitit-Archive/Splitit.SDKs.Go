@@ -33,6 +33,7 @@ type InstallmentPlanApiService interface {
 	InstallmentPlanGetFraudStatusDisplay(ctx _context.Context, request GetFraudStatusDisplayRequest) (GetFraudStatusDisplayResponse, *_nethttp.Response, error)
 	InstallmentPlanGetInitiatedInstallmentPlanRequest(ctx _context.Context, request GetInitiatedInstallmentPlanRequest) (GetInitiatedInstallmentPlanResponse, *_nethttp.Response, error)
 	InstallmentPlanGetLearnMoreDetails(ctx _context.Context, request LearnMoreDetailsRequest) (LearnMoreDetailsResponse, *_nethttp.Response, error)
+	InstallmentPlanGetSchedules(ctx _context.Context, request GetInstallmentSchedulesRequest) (GetInstallmentsScheduleResponse, *_nethttp.Response, error)
 	InstallmentPlanInitiate(ctx _context.Context, request InitiateInstallmentPlanRequest) (InitiateInstallmentsPlanResponse, *_nethttp.Response, error)
 	InstallmentPlanRefund(ctx _context.Context, request RefundPlanRequest) (RefundInstallmentPlanResponse, *_nethttp.Response, error)
 	InstallmentPlanStartInstallments(ctx _context.Context, request StartInstallmentsRequest) (InstallmentPlanResponse, *_nethttp.Response, error)
@@ -87,7 +88,34 @@ func (a implInstallmentPlanApiService) InstallmentPlanApprove(ctx _context.Conte
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*ApproveInstallmentPlanRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		ApproveInstallmentPlanRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -132,6 +160,17 @@ func (a implInstallmentPlanApiService) InstallmentPlanApprove(ctx _context.Conte
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanApprove(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
@@ -190,7 +229,34 @@ func (a implInstallmentPlanApiService) InstallmentPlanCancel(ctx _context.Contex
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*CancelInstallmentPlanRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		CancelInstallmentPlanRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -235,6 +301,17 @@ func (a implInstallmentPlanApiService) InstallmentPlanCancel(ctx _context.Contex
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanCancel(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
@@ -293,7 +370,34 @@ func (a implInstallmentPlanApiService) InstallmentPlanChargeBack(ctx _context.Co
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*ChargebackRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		ChargebackRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -338,6 +442,17 @@ func (a implInstallmentPlanApiService) InstallmentPlanChargeBack(ctx _context.Co
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanChargeBack(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
@@ -396,7 +511,34 @@ func (a implInstallmentPlanApiService) InstallmentPlanCreate(ctx _context.Contex
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*CreateInstallmentPlanRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		CreateInstallmentPlanRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -441,6 +583,17 @@ func (a implInstallmentPlanApiService) InstallmentPlanCreate(ctx _context.Contex
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanCreate(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
@@ -499,7 +652,34 @@ func (a implInstallmentPlanApiService) InstallmentPlanGet(ctx _context.Context, 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*GetInstallmentsPlanSearchCriteriaRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		GetInstallmentsPlanSearchCriteriaRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -544,6 +724,17 @@ func (a implInstallmentPlanApiService) InstallmentPlanGet(ctx _context.Context, 
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanGet(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
@@ -602,7 +793,34 @@ func (a implInstallmentPlanApiService) InstallmentPlanGet3DSecureParameters(ctx 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*Get3DSecureParametersRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		Get3DSecureParametersRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -647,6 +865,17 @@ func (a implInstallmentPlanApiService) InstallmentPlanGet3DSecureParameters(ctx 
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanGet3DSecureParameters(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
@@ -705,7 +934,34 @@ func (a implInstallmentPlanApiService) InstallmentPlanGetExtended(ctx _context.C
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*GetInstallmentsPlanSearchCriteriaRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		GetInstallmentsPlanSearchCriteriaRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -750,6 +1006,17 @@ func (a implInstallmentPlanApiService) InstallmentPlanGetExtended(ctx _context.C
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanGetExtended(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
@@ -808,7 +1075,34 @@ func (a implInstallmentPlanApiService) InstallmentPlanGetFraudStatusDisplay(ctx 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*GetFraudStatusDisplayRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		GetFraudStatusDisplayRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -853,6 +1147,17 @@ func (a implInstallmentPlanApiService) InstallmentPlanGetFraudStatusDisplay(ctx 
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanGetFraudStatusDisplay(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
@@ -911,7 +1216,34 @@ func (a implInstallmentPlanApiService) InstallmentPlanGetInitiatedInstallmentPla
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*GetInitiatedInstallmentPlanRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		GetInitiatedInstallmentPlanRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -956,6 +1288,17 @@ func (a implInstallmentPlanApiService) InstallmentPlanGetInitiatedInstallmentPla
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanGetInitiatedInstallmentPlanRequest(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
@@ -1014,7 +1357,34 @@ func (a implInstallmentPlanApiService) InstallmentPlanGetLearnMoreDetails(ctx _c
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*LearnMoreDetailsRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		LearnMoreDetailsRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1059,6 +1429,158 @@ func (a implInstallmentPlanApiService) InstallmentPlanGetLearnMoreDetails(ctx _c
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanGetLearnMoreDetails(ctx , request)
+			}
+			newErr := GenericOpenAPIError{
+				body:  localVarBody,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
+				model: localVarReturnValue.ResponseHeader,
+			}
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: "Error ocurred while contacting Splitit API.",
+			model: localVarReturnValue.ResponseHeader,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+/*
+InstallmentPlanGetSchedules Method for InstallmentPlanGetSchedules
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param request
+@return GetInstallmentsScheduleResponse
+*/
+func (a implInstallmentPlanApiService) InstallmentPlanGetSchedules(ctx _context.Context, request GetInstallmentSchedulesRequest) (GetInstallmentsScheduleResponse, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  GetInstallmentsScheduleResponse
+	)
+
+	// create path and map variables
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/GetSchedules"
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json-patch+json", "application/json", "text/json", "application/_*+json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"text/plain", "application/json", "text/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*GetInstallmentSchedulesRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		GetInstallmentSchedulesRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 200 {
+			var v GetInstallmentsScheduleResponse
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	if localVarReturnValue.ResponseHeader.Succeeded != true {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanGetSchedules(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
@@ -1117,7 +1639,34 @@ func (a implInstallmentPlanApiService) InstallmentPlanInitiate(ctx _context.Cont
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*InitiateInstallmentPlanRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		InitiateInstallmentPlanRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1162,6 +1711,17 @@ func (a implInstallmentPlanApiService) InstallmentPlanInitiate(ctx _context.Cont
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanInitiate(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
@@ -1220,7 +1780,34 @@ func (a implInstallmentPlanApiService) InstallmentPlanRefund(ctx _context.Contex
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*RefundPlanRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		RefundPlanRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1265,6 +1852,17 @@ func (a implInstallmentPlanApiService) InstallmentPlanRefund(ctx _context.Contex
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanRefund(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
@@ -1323,7 +1921,34 @@ func (a implInstallmentPlanApiService) InstallmentPlanStartInstallments(ctx _con
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*StartInstallmentsRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		StartInstallmentsRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1368,6 +1993,17 @@ func (a implInstallmentPlanApiService) InstallmentPlanStartInstallments(ctx _con
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanStartInstallments(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
@@ -1426,7 +2062,34 @@ func (a implInstallmentPlanApiService) InstallmentPlanTermsAndConditions(ctx _co
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*TermsAndConditionsGetRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		TermsAndConditionsGetRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1471,6 +2134,17 @@ func (a implInstallmentPlanApiService) InstallmentPlanTermsAndConditions(ctx _co
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanTermsAndConditions(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
@@ -1529,7 +2203,34 @@ func (a implInstallmentPlanApiService) InstallmentPlanUpdate(ctx _context.Contex
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*UpdateInstallmentPlanRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		UpdateInstallmentPlanRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1574,6 +2275,17 @@ func (a implInstallmentPlanApiService) InstallmentPlanUpdate(ctx _context.Contex
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanUpdate(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
@@ -1632,7 +2344,34 @@ func (a implInstallmentPlanApiService) InstallmentPlanVerifyPayment(ctx _context
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*VerifyPaymentRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		VerifyPaymentRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1677,6 +2416,17 @@ func (a implInstallmentPlanApiService) InstallmentPlanVerifyPayment(ctx _context
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanVerifyPayment(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,

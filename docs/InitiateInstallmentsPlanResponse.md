@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ResponseHeader** | [**ResponseHeader**](ResponseHeader.md) |  | [optional] 
 **InstallmentPlan** | [**InstallmentPlan**](InstallmentPlan.md) |  | [optional] 
+**GatewayTransactionResults** | [**[]TransactionResult**](TransactionResult.md) |  | [optional] 
 **CheckoutUrl** | **string** |  | [optional] 
 **ApprovalUrl** | **string** |  | [optional] 
 **TermsAndConditionsUrl** | **string** |  | [optional] 

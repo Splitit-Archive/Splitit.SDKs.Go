@@ -131,6 +131,17 @@ func (a implLoginApiService) LoginGet(ctx _context.Context, localVarOptionals *L
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.LoginGet(ctx , localVarOptionals)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
@@ -189,7 +200,34 @@ func (a implLoginApiService) LoginPost(ctx _context.Context, request LoginReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = &request
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*LoginRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		LoginRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
 	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -234,6 +272,17 @@ func (a implLoginApiService) LoginPost(ctx _context.Context, request LoginReques
 
 	if localVarReturnValue.ResponseHeader.Succeeded != true {
 		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.LoginPost(ctx , request)
+			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,
 				error: localVarReturnValue.ResponseHeader.Errors[0].Message,

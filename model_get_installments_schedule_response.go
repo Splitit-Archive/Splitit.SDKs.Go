@@ -8,9 +8,10 @@
  */
 
 package splitit
-// InstallmentPlanResponse struct for InstallmentPlanResponse
-type InstallmentPlanResponse struct {
+// GetInstallmentsScheduleResponse struct for GetInstallmentsScheduleResponse
+type GetInstallmentsScheduleResponse struct {
 	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"` 
-	InstallmentPlan *InstallmentPlan `json:"InstallmentPlan,omitempty"` 
-	GatewayTransactionResults []TransactionResult `json:"GatewayTransactionResults,omitempty"` 
+	Schedules []Schedule `json:"Schedules,omitempty"` 
+	InstallmentsPicker string `json:"InstallmentsPicker,omitempty"` 
+	Headline string `json:"Headline,omitempty"` 
 }

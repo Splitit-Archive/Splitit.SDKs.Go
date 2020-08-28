@@ -14,4 +14,5 @@ type CancelInstallmentPlanRequest struct {
 	RefundUnderCancelation RefundUnderCancelation `json:"RefundUnderCancelation"` 
 	CancelationReason InstallmentPlanCancelationReason `json:"CancelationReason"` 
 	IsExecutedUnattended bool `json:"IsExecutedUnattended"` 
+	PartialResponseMapping bool `json:"PartialResponseMapping"` 
 }

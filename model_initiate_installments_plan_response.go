@@ -12,6 +12,7 @@ package splitit
 type InitiateInstallmentsPlanResponse struct {
 	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"` 
 	InstallmentPlan *InstallmentPlan `json:"InstallmentPlan,omitempty"` 
+	GatewayTransactionResults []TransactionResult `json:"GatewayTransactionResults,omitempty"` 
 	CheckoutUrl string `json:"CheckoutUrl,omitempty"` 
 	ApprovalUrl string `json:"ApprovalUrl,omitempty"` 
 	TermsAndConditionsUrl string `json:"TermsAndConditionsUrl,omitempty"` 

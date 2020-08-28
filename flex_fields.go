@@ -3,7 +3,6 @@ package splitit
 import (
 	_context "context"
 	"fmt"
-	"math"
 )
 
 type FlexFields struct {
@@ -19,29 +18,13 @@ type FlexFieldsCaptureSettings struct {
 	FirstChargeDate        *SplititTime
 }
 
-func FlexFieldsAuthenticate(ctx _context.Context, client *APIClient, username string, pass string) (*FlexFields, error) {
-	loginResponse, _, err := client.LoginApi.LoginPost(ctx, LoginRequest{
-		UserName: username,
-		Password: pass,
-	})
-
-	if err != nil {
-		return nil, err
-	}
-	client.SetSessionID(loginResponse.SessionId)
-
-	ff := &FlexFields{
+func NewFlexFields(client *APIClient) *FlexFields {
+	return &FlexFields{
 		Client: client,
 		ActiveInitRequest: InitiateInstallmentPlanRequest{
 			PlanData: &PlanData{},
 		},
 	}
-
-	return ff, nil
-}
-
-func (ff *FlexFields) AddCulture(culture string) {
-	ff.Client.cfg.culture = culture
 }
 
 func (ff *FlexFields) AddInstallments(installmentOptions string, defaultNumInstallments int32) {
@@ -62,10 +45,7 @@ func (ff *FlexFields) AddBillingInformation(billingAddress *AddressData, consume
 }
 
 func (ff *FlexFields) GetPublicToken(ctx _context.Context, amount float64, currencyCode string) (string, error) {
-	ff.ActiveInitRequest.PlanData.Amount = &MoneyWithCurrencyCode{
-		Value:        amount,
-		CurrencyCode: currencyCode,
-	}
+	ff.ActiveInitRequest.PlanData.Amount = &MoneyWithCurrencyCode{amount, currencyCode}
 
 	initResponse, _, err := ff.Client.InstallmentPlanApi.InstallmentPlanInitiate(ctx, ff.ActiveInitRequest)
 
@@ -86,7 +66,7 @@ func (ff *FlexFields) VerifyPayment(ctx _context.Context, planNumber string, ord
 		return false, err
 	}
 
-	return res.IsPaid && math.Abs(res.OriginalAmountPaid-orderAmount) < 0.02, err
+	return res.IsPaid && res.OriginalAmountPaid == orderAmount, err
 }
 
 func (ff *FlexFields) Add3DSecure(redirectUrls *RedirectUrls) {
@@ -98,10 +78,7 @@ func (ff *FlexFields) AddCaptureSettings(captureSettings *FlexFieldsCaptureSetti
 	ff.ActiveInitRequest.PlanData.AutoCapture = captureSettings.AutoCapture
 
 	if captureSettings.FirstInstallmentAmount > 0 {
-		ff.ActiveInitRequest.PlanData.FirstInstallmentAmount = &MoneyWithCurrencyCode{
-			Value:        captureSettings.FirstInstallmentAmount,
-			CurrencyCode: captureSettings.CurrencyCode,
-		}
+		ff.ActiveInitRequest.PlanData.FirstInstallmentAmount = &MoneyWithCurrencyCode{captureSettings.FirstInstallmentAmount, captureSettings.CurrencyCode}
 	}
 
 	if captureSettings.FirstChargeDate != nil {

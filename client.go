@@ -30,7 +30,6 @@ import (
 	"strings"
 	"time"
 	"unicode/utf8"
-	"github.com/fatih/structs"
 
 	//"golang.org/x/oauth2"
 )
@@ -43,9 +42,9 @@ var (
 // APIClient manages communication with the splitit-web-api-public-sdk API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *Configuration
+	*sessionIDHandler
 
-	sessionId string
+	cfg    *Configuration
 
 	// API Services
 
@@ -61,8 +60,15 @@ type APIClient struct {
 }
 
 
-func newAPIClient(cfg *Configuration, options... APIOption) *APIClient {
+func newAPIClient(cfg *Configuration, apiKey, username, password string, options... APIOption) *APIClient {
+	cfg.ApiKey = apiKey
+	cfg.username = username
+	cfg.password = password
 	cfg.HTTPClient = http.DefaultClient
+	cfg.UserAgent = "SplititSdk/1.5.11/go"
+	cfg.DefaultHeader = map[string]string{
+		"Splitit-SDK": "Go-1.5.11",
+	}
 
 	// Apply options to modify parameters
 	for _, option := range options {
@@ -80,17 +86,14 @@ func newAPIClient(cfg *Configuration, options... APIOption) *APIClient {
 	c.LoginApi = implLoginApiService{c}
 	c.LoginApi = loginApiServiceWrapper{c.LoginApi.(implLoginApiService)}
 
+	c.sessionIDHandler = newSessionIDHandler(c)
+
 	return c
 }
 
-func NewSandboxAPIClient(options... APIOption) *APIClient {
+func NewSandboxAPIClient(apiKey, username, password string, options... APIOption) *APIClient {
 	cfg := &Configuration{
 		BasePath:      "https://webapi.sandbox.splitit.com",
-		DefaultHeader: map[string]string{
-    		"Splitit-SDK": "Go-1.5.10",
-		},
-		UserAgent:     "SplititSdk/1.5.10/go",
-		Debug:         false,
 		Servers:       []ServerConfiguration{
 			{
 				Url: "https://webapi.sandbox.splitit.com/",
@@ -98,19 +101,13 @@ func NewSandboxAPIClient(options... APIOption) *APIClient {
 			},
 		},
 	}
-	return newAPIClient(cfg, options...)
+	return newAPIClient(cfg, apiKey, username, password, options...)
 }
 
-// NewAPIClient creates a new API client. Requires a userAgent string describing your application.
-// optionally a custom http.Client to allow for advanced features such as caching.
-func NewAPIClient(options... APIOption) *APIClient {
+// NewAPIClient creates a new API client. Requires credentials for your application.
+func NewAPIClient(apiKey, username, password string, options... APIOption) *APIClient {
 	cfg := &Configuration{
 		BasePath:      "https://webapi.production.splitit.com",
-		DefaultHeader: map[string]string{
-    		"Splitit-SDK": "Go-1.5.10",
-		},
-		UserAgent:     "SplititSdk/1.5.10/go",
-		Debug:         false,
 		Servers:       []ServerConfiguration{
 			{
 				Url: "https://webapi.production.splitit.com/",
@@ -118,7 +115,7 @@ func NewAPIClient(options... APIOption) *APIClient {
 			},
 		},
 	}
-	return newAPIClient(cfg, options...)
+	return newAPIClient(cfg, apiKey, username, password, options...)
 }
 
 
@@ -127,12 +124,10 @@ type loginApiServiceWrapper struct{
 	implLoginApiService
 }
 
-func (wr loginApiServiceWrapper) LoginPost(ctx context.Context, request LoginRequest) (lr LoginResponse, hr *http.Response, err error) {
-	lr, hr, err = wr.implLoginApiService.LoginPost(ctx, request)
-	if err == nil && lr.ResponseHeader.Succeeded{
-		wr.implLoginApiService.APIClient.setSessionID(lr.SessionId)
-	}
-	return
+func (wr loginApiServiceWrapper) LoginPost(ctx context.Context, request LoginRequest) (LoginResponse, *http.Response, error) {
+	ctx = context.WithValue(ctx, noSessionIdKey{}, struct{}{})
+	ctx = context.WithValue(ctx, noApiKeyCtxKey{}, struct{}{})
+	return wr.implLoginApiService.LoginPost(ctx, request)
 }
 
 func atoi(in string) (int, error) {
@@ -256,10 +251,6 @@ func (c *APIClient) ChangeBasePath(path string) {
 // Caution: modifying the configuration while live can cause data races and potentially unwanted behavior
 func (c *APIClient) GetConfig() *Configuration {
 	return c.cfg
-}
-
-func (c *APIClient) setSessionID(sessionID string) {
-	c.sessionId = sessionID
 }
 
 // prepareRequest build the request
@@ -440,33 +431,29 @@ func reportError(format string, a ...interface{}) error {
 	return fmt.Errorf(format, a...)
 }
 
+type requestBody interface{}
+
 // Set request body from an interface{}
 func setBody(c *APIClient, ctx context.Context, body interface{}, contentType string) (bodyBuf *bytes.Buffer, err error) {
 	if bodyBuf == nil {
 		bodyBuf = &bytes.Buffer{}
 	}
 
-	if reader, ok := body.(io.Reader); ok {
-		_, err = bodyBuf.ReadFrom(reader)
-	} else if b, ok := body.([]byte); ok {
-		_, err = bodyBuf.Write(b)
-	} else if s, ok := body.(string); ok {
-		_, err = bodyBuf.WriteString(s)
-	} else if s, ok := body.(*string); ok {
-		_, err = bodyBuf.WriteString(*s)
-	} else if jsonCheck.MatchString(contentType) {
-		bodyMap := structs.Map(body)
-
-		bodyMap["RequestHeader"] = RequestHeader{
-			ApiKey: c.cfg.ApiKey,
-			TouchPoint: c.cfg.TouchPoint,
-			SessionId: c.sessionId,
-			CultureName: c.cfg.culture,
+	switch tBody := body.(type) {
+	case io.Reader:
+		_, err = bodyBuf.ReadFrom(tBody)
+	case []byte:
+		_, err = bodyBuf.Write(tBody)
+	case string:
+		_, err = bodyBuf.WriteString(tBody)
+	case *string:
+		_, err = bodyBuf.WriteString(*tBody)
+	default:
+		if jsonCheck.MatchString(contentType) {
+			err = json.NewEncoder(bodyBuf).Encode(body)
+		} else if xmlCheck.MatchString(contentType) {
+			err = xml.NewEncoder(bodyBuf).Encode(body)
 		}
-
-		err = json.NewEncoder(bodyBuf).Encode(bodyMap)
-	} else if xmlCheck.MatchString(contentType) {
-		err = xml.NewEncoder(bodyBuf).Encode(body)
 	}
 
 	if err != nil {

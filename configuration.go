@@ -39,16 +39,13 @@ type Configuration struct {
 	Servers       []ServerConfiguration
 	HTTPClient    *http.Client
 
-	culture   string
+	username       string
+	password       string
+	defaultCulture string
 }
 
 type APIOption func(*Configuration)
 
-func Culture(culture string) APIOption {
-	return func(cfg *Configuration) {
-		cfg.culture = culture
-	}
-}
 
 func HTTPClient(client *http.Client) APIOption {
 	return func(cfg *Configuration) {
@@ -56,15 +53,21 @@ func HTTPClient(client *http.Client) APIOption {
 	}
 }
 
-func APIKey(apiKey string) APIOption {
+func DefaultHeader(key, value string) APIOption {
 	return func(cfg *Configuration) {
-		cfg.ApiKey = apiKey
+		cfg.DefaultHeader[key] = value
 	}
 }
 
-func Debug(debug bool) APIOption {
+func Debug() APIOption {
 	return func(cfg *Configuration) {
-		cfg.Debug = debug
+		cfg.Debug = true
+	}
+}
+
+func DefaultCulture(culture string) APIOption {
+	return func(cfg *Configuration) {
+		cfg.defaultCulture = culture
 	}
 }
 
