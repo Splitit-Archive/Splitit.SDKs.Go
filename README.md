@@ -5,7 +5,7 @@ This is Splitit Web API SDK source code for Go applications. For other languages
 ## Overview
 
 - API version: 1.0.0
-- Package version: 1.5.11
+- Package version: 1.5.12
 
 ## Installation
 
@@ -200,8 +200,10 @@ Class | Method | HTTP request | Description
  - [ApproveInstallmentPlanRequest](docs/ApproveInstallmentPlanRequest.md)
  - [AuthenticationType](docs/AuthenticationType.md)
  - [CancelInstallmentPlanRequest](docs/CancelInstallmentPlanRequest.md)
+ - [CardBrand](docs/CardBrand.md)
  - [CardData](docs/CardData.md)
  - [CardResult](docs/CardResult.md)
+ - [CardType](docs/CardType.md)
  - [CartData](docs/CartData.md)
  - [ChargebackRequest](docs/ChargebackRequest.md)
  - [ConsumerData](docs/ConsumerData.md)
@@ -214,6 +216,8 @@ Class | Method | HTTP request | Description
  - [DelayResolution](docs/DelayResolution.md)
  - [Error](docs/Error.md)
  - [EventsEndpoints](docs/EventsEndpoints.md)
+ - [ExtendedCurrency](docs/ExtendedCurrency.md)
+ - [ExtendedCurrencyAllOf](docs/ExtendedCurrencyAllOf.md)
  - [ExternalAuth](docs/ExternalAuth.md)
  - [FraudCheck](docs/FraudCheck.md)
  - [FraudCheckResult](docs/FraudCheckResult.md)

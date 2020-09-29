@@ -12,7 +12,7 @@ package splitit
 type CancelInstallmentPlanRequest struct {
 	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"` 
 	RefundUnderCancelation RefundUnderCancelation `json:"RefundUnderCancelation"` 
-	CancelationReason InstallmentPlanCancelationReason `json:"CancelationReason"` 
+	CancelationReason InstallmentPlanCancelationReason `json:"CancelationReason,omitempty"` 
 	IsExecutedUnattended bool `json:"IsExecutedUnattended"` 
 	PartialResponseMapping bool `json:"PartialResponseMapping"` 
 }

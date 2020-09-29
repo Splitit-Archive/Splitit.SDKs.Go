@@ -38,4 +38,5 @@ type InstallmentPlan struct {
 	CreationDateTime *SplititTime `json:"CreationDateTime"` 
 	Installments []Installment2 `json:"Installments,omitempty"` 
 	SecureAuthorizations []ReAuthorization `json:"SecureAuthorizations,omitempty"` 
+	LogoUrl string `json:"LogoUrl,omitempty"` 
 }

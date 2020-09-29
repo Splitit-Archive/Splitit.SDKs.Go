@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ShowAddressElements** | **string** |  | [optional] 
-**CurrencyDisplay** | [**Currency**](Currency.md) |  | [optional] 
+**CurrencyDisplay** | [**ExtendedCurrency**](ExtendedCurrency.md) |  | [optional] 
 **ForceDisplayImportantNotes** | **bool** |  | 
 **ShowShopperDetailsExpendedOnStart** | **bool** |  | 
 **ShowPaymentScheduleRequiredCredit** | **bool** |  | 
@@ -15,10 +15,14 @@ Name | Type | Description | Notes
 **AddressIsReadonly** | **bool** |  | 
 **PhoneIsReadOnly** | **bool** |  | 
 **EmailIsReadOnly** | **bool** |  | 
+**ShowLearnMore** | **bool** |  | 
+**ShowMobilePhone** | **bool** |  | 
 **LogoURL** | **string** |  | [optional] 
 **PrivacyPolicyUrl** | **string** |  | [optional] 
 **TermsAndConditionsUrl** | **string** |  | [optional] 
 **LearnMoreUrl** | **string** |  | [optional] 
+**PotentialCardTypes** | [**[]CardType**](CardType.md) |  | [optional] 
+**PotentialCardBrands** | [**[]CardBrand**](CardBrand.md) |  | [optional] 
 **PaymentFormMessages** | [**[]PaymentFormMessage**](PaymentFormMessage.md) |  | [optional] 
 **DisplayProperties** | **map[string]string** |  | [optional] 
 **TermsAndConditions** | [**TermsAndConditions**](TermsAndConditions.md) |  | [optional] 

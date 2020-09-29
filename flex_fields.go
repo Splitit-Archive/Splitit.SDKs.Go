@@ -2,7 +2,6 @@ package splitit
 
 import (
 	_context "context"
-	"fmt"
 )
 
 type FlexFields struct {
@@ -29,8 +28,6 @@ func NewFlexFields(client *APIClient) *FlexFields {
 
 func (ff *FlexFields) AddInstallments(installmentOptions string, defaultNumInstallments int32) {
 	ff.ActiveInitRequest.PlanData.NumberOfInstallments = defaultNumInstallments
-
-	fmt.Println(ff.ActiveInitRequest.PlanData.NumberOfInstallments)
 
 	if ff.ActiveInitRequest.PaymentWizardData == nil {
 		ff.ActiveInitRequest.PaymentWizardData = &PaymentWizardData{}

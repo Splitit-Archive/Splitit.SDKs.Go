@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **InstallmentPlanNumber** | **string** |  | [optional] 
 **RefundUnderCancelation** | [**RefundUnderCancelation**](RefundUnderCancelation.md) |  | 
-**CancelationReason** | [**InstallmentPlanCancelationReason**](InstallmentPlanCancelationReason.md) |  | 
+**CancelationReason** | [**InstallmentPlanCancelationReason**](InstallmentPlanCancelationReason.md) |  | [optional] 
 **IsExecutedUnattended** | **bool** |  | 
 **PartialResponseMapping** | **bool** |  | 
 

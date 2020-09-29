@@ -21,4 +21,6 @@ const (
 	DELAYRESOLUTION_DEFAULTED_IN_COLLECTION DelayResolution = "DefaultedInCollection"
 	DELAYRESOLUTION_DEFAULTED_PERMANENTLY DelayResolution = "DefaultedPermanently"
 	DELAYRESOLUTION_DEFAULTED_COLLECTED_FROM_MERCHANT DelayResolution = "DefaultedCollectedFromMerchant"
+	DELAYRESOLUTION_DEFAULTED_SPLITIT_LIABLE_PAIDTO_MERCHANT DelayResolution = "DefaultedSplititLiablePaidtoMerchant"
+	DELAYRESOLUTION_DEFAULTED_CHARGEBACK_COLLECTED_FROM_MERCHANT DelayResolution = "DefaultedChargebackCollectedFromMerchant"
 )

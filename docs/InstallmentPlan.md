@@ -29,6 +29,7 @@ Name | Type | Description | Notes
 **CreationDateTime** | [**time.Time**](time.Time.md) |  | 
 **Installments** | [**[]Installment2**](Installment2.md) |  | [optional] 
 **SecureAuthorizations** | [**[]ReAuthorization**](ReAuthorization.md) |  | [optional] 
+**LogoUrl** | **string** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

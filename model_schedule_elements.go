@@ -8,10 +8,13 @@
  */
 
 package splitit
+import (
+	
+)
 // ScheduleElements struct for ScheduleElements
 type ScheduleElements struct {
 	InstallmentNumber int32 `json:"InstallmentNumber"` 
-	ChargeDate string `json:"ChargeDate,omitempty"` 
+	ChargeDate *SplititTime `json:"ChargeDate"` 
 	ChargeAmount float64 `json:"ChargeAmount"` 
 	RequiredCredit float64 `json:"RequiredCredit"` 
 }
