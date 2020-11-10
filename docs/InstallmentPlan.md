@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **IsChargedBack** | **bool** |  | 
 **ArePaymentsOnHold** | **bool** |  | 
 **ScpFundingPercent** | **float32** |  | 
+**IsFunded** | **bool** |  | 
 **TestMode** | [**TestModes**](TestModes.md) |  | 
 **CreationDateTime** | [**time.Time**](time.Time.md) |  | 
 **Installments** | [**[]Installment2**](Installment2.md) |  | [optional] 

@@ -55,8 +55,6 @@ type APIClient struct {
 	InfrastructureApi InfrastructureApiService
 
 	InstallmentPlanApi InstallmentPlanApiService
-
-	LoginApi LoginApiService
 }
 
 
@@ -65,9 +63,9 @@ func newAPIClient(cfg *Configuration, apiKey, username, password string, options
 	cfg.username = username
 	cfg.password = password
 	cfg.HTTPClient = http.DefaultClient
-	cfg.UserAgent = "SplititSdk/1.5.16/go"
+	cfg.UserAgent = "SplititSdk/1.5.-56/go"
 	cfg.DefaultHeader = map[string]string{
-		"Splitit-SDK": "Go-1.5.16",
+		"Splitit-SDK": "Go-1.5.-56",
 	}
 
 	// Apply options to modify parameters
@@ -83,7 +81,6 @@ func newAPIClient(cfg *Configuration, apiKey, username, password string, options
 	c.InfoApi = implInfoApiService{c}
 	c.InfrastructureApi = implInfrastructureApiService{c}
 	c.InstallmentPlanApi = implInstallmentPlanApiService{c}
-	c.LoginApi = implLoginApiService{c}
 	c.LoginApi = loginApiServiceWrapper{c.LoginApi.(implLoginApiService)}
 
 	c.sessionIDHandler = newSessionIDHandler(c)

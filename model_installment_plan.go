@@ -34,6 +34,7 @@ type InstallmentPlan struct {
 	IsChargedBack bool `json:"IsChargedBack"` 
 	ArePaymentsOnHold bool `json:"ArePaymentsOnHold"` 
 	ScpFundingPercent float64 `json:"ScpFundingPercent"` 
+	IsFunded bool `json:"IsFunded"` 
 	TestMode TestModes `json:"TestMode"` 
 	CreationDateTime *SplititTime `json:"CreationDateTime"` 
 	Installments []Installment2 `json:"Installments,omitempty"` 

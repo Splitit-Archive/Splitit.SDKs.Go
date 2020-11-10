@@ -5,7 +5,7 @@ This is Splitit Web API SDK source code for Go applications. For other languages
 ## Overview
 
 - API version: 1.0.0
-- Package version: 1.5.16
+- Package version: 1.5.-56
 
 ## Installation
 
@@ -188,7 +188,6 @@ Class | Method | HTTP request | Description
 *InstallmentPlanApi* | [**InstallmentPlanTermsAndConditions**](docs/InstallmentPlanApi.md#installmentplantermsandconditions) | **Post** /api/InstallmentPlan/TermsAndConditions | 
 *InstallmentPlanApi* | [**InstallmentPlanUpdate**](docs/InstallmentPlanApi.md#installmentplanupdate) | **Post** /api/InstallmentPlan/Update | 
 *InstallmentPlanApi* | [**InstallmentPlanVerifyPayment**](docs/InstallmentPlanApi.md#installmentplanverifypayment) | **Post** /api/InstallmentPlan/Get/VerifyPayment | 
-*LoginApi* | [**LoginPost**](docs/LoginApi.md#loginpost) | **Post** /api/Login | 
 
 
 ## Documentation For Models
@@ -252,10 +251,6 @@ Class | Method | HTTP request | Description
  - [ItemData](docs/ItemData.md)
  - [LearnMoreDetailsRequest](docs/LearnMoreDetailsRequest.md)
  - [LearnMoreDetailsResponse](docs/LearnMoreDetailsResponse.md)
- - [LoginRequest](docs/LoginRequest.md)
- - [LoginResponse](docs/LoginResponse.md)
- - [LoginResponse2](docs/LoginResponse2.md)
- - [LoginResponseAllOf](docs/LoginResponseAllOf.md)
  - [MerchantRef](docs/MerchantRef.md)
  - [MerchantRefAllOf](docs/MerchantRefAllOf.md)
  - [Money](docs/Money.md)
@@ -282,9 +277,7 @@ Class | Method | HTTP request | Description
  - [RefundUnderCancelation](docs/RefundUnderCancelation.md)
  - [RelationsLoad](docs/RelationsLoad.md)
  - [RequestHeader](docs/RequestHeader.md)
- - [ResponseError](docs/ResponseError.md)
  - [ResponseHeader](docs/ResponseHeader.md)
- - [ResponseStatus](docs/ResponseStatus.md)
  - [Schedule](docs/Schedule.md)
  - [ScheduleElements](docs/ScheduleElements.md)
  - [StartInstallmentsRequest](docs/StartInstallmentsRequest.md)
