@@ -5,7 +5,7 @@ This is Splitit Web API SDK source code for Go applications. For other languages
 ## Overview
 
 - API version: 1.0.0
-- Package version: 1.5.18
+- Package version: 1.5.31
 
 ## Installation
 
@@ -188,6 +188,8 @@ Class | Method | HTTP request | Description
 *InstallmentPlanApi* | [**InstallmentPlanTermsAndConditions**](docs/InstallmentPlanApi.md#installmentplantermsandconditions) | **Post** /api/InstallmentPlan/TermsAndConditions | 
 *InstallmentPlanApi* | [**InstallmentPlanUpdate**](docs/InstallmentPlanApi.md#installmentplanupdate) | **Post** /api/InstallmentPlan/Update | 
 *InstallmentPlanApi* | [**InstallmentPlanVerifyPayment**](docs/InstallmentPlanApi.md#installmentplanverifypayment) | **Post** /api/InstallmentPlan/Get/VerifyPayment | 
+*LoginApi* | [**LoginPost**](docs/LoginApi.md#loginpost) | **Post** /api/login | 
+*LogoutApi* | [**LogoutPost**](docs/LogoutApi.md#logoutpost) | **Post** /api/logout | 
 
 
 ## Documentation For Models
@@ -251,6 +253,9 @@ Class | Method | HTTP request | Description
  - [ItemData](docs/ItemData.md)
  - [LearnMoreDetailsRequest](docs/LearnMoreDetailsRequest.md)
  - [LearnMoreDetailsResponse](docs/LearnMoreDetailsResponse.md)
+ - [LoginRequest](docs/LoginRequest.md)
+ - [LoginResponse](docs/LoginResponse.md)
+ - [LogoutResponse](docs/LogoutResponse.md)
  - [MerchantRef](docs/MerchantRef.md)
  - [MerchantRefAllOf](docs/MerchantRefAllOf.md)
  - [Money](docs/Money.md)
