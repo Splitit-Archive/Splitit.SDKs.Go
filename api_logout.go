@@ -32,6 +32,9 @@ type implLogoutApiService struct {
 }
 
 
+
+type paramForLogoutPost map[string]interface{}
+
 /*
 LogoutPost Method for LogoutPost
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -88,10 +91,10 @@ func (a implLogoutApiService) LogoutPost(ctx _context.Context, request map[strin
 	}
 
 	localVarPostBody = &struct {
-		*map[string]interface{}
+		paramForLogoutPost
 		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
 	}{
-		map[string]interface{}: &request,
+		paramForLogoutPost: request,
 		RequestHeader: RequestHeader{
 			ApiKey:      apiKey,
 			CultureName: culture,

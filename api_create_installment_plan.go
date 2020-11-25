@@ -53,6 +53,8 @@ type CreateInstallmentPlanGetOpts struct {
     SessionId optional.String
 }
 
+
+
 /*
 CreateInstallmentPlanGet Method for CreateInstallmentPlanGet
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().

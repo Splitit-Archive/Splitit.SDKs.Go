@@ -48,6 +48,8 @@ type implInstallmentPlanApiService struct {
 }
 
 
+
+
 /*
 InstallmentPlanApprove Method for InstallmentPlanApprove
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -188,6 +190,8 @@ func (a implInstallmentPlanApiService) InstallmentPlanApprove(ctx _context.Conte
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+
 
 /*
 InstallmentPlanCancel Method for InstallmentPlanCancel
@@ -330,6 +334,8 @@ func (a implInstallmentPlanApiService) InstallmentPlanCancel(ctx _context.Contex
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
 /*
 InstallmentPlanChargeBack Method for InstallmentPlanChargeBack
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -470,6 +476,8 @@ func (a implInstallmentPlanApiService) InstallmentPlanChargeBack(ctx _context.Co
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+
 
 /*
 InstallmentPlanCreate Method for InstallmentPlanCreate
@@ -612,6 +620,8 @@ func (a implInstallmentPlanApiService) InstallmentPlanCreate(ctx _context.Contex
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
 /*
 InstallmentPlanGet Method for InstallmentPlanGet
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -752,6 +762,8 @@ func (a implInstallmentPlanApiService) InstallmentPlanGet(ctx _context.Context, 
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+
 
 /*
 InstallmentPlanGet3DSecureParameters Method for InstallmentPlanGet3DSecureParameters
@@ -894,6 +906,8 @@ func (a implInstallmentPlanApiService) InstallmentPlanGet3DSecureParameters(ctx 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
 /*
 InstallmentPlanGetExtended Method for InstallmentPlanGetExtended
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1034,6 +1048,8 @@ func (a implInstallmentPlanApiService) InstallmentPlanGetExtended(ctx _context.C
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+
 
 /*
 InstallmentPlanGetFraudStatusDisplay Method for InstallmentPlanGetFraudStatusDisplay
@@ -1176,6 +1192,8 @@ func (a implInstallmentPlanApiService) InstallmentPlanGetFraudStatusDisplay(ctx 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
 /*
 InstallmentPlanGetInitiatedInstallmentPlanRequest Method for InstallmentPlanGetInitiatedInstallmentPlanRequest
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1316,6 +1334,8 @@ func (a implInstallmentPlanApiService) InstallmentPlanGetInitiatedInstallmentPla
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+
 
 /*
 InstallmentPlanGetLearnMoreDetails Method for InstallmentPlanGetLearnMoreDetails
@@ -1458,6 +1478,8 @@ func (a implInstallmentPlanApiService) InstallmentPlanGetLearnMoreDetails(ctx _c
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
 /*
 InstallmentPlanGetSchedules Method for InstallmentPlanGetSchedules
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1598,6 +1620,8 @@ func (a implInstallmentPlanApiService) InstallmentPlanGetSchedules(ctx _context.
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+
 
 /*
 InstallmentPlanInitiate Method for InstallmentPlanInitiate
@@ -1740,6 +1764,8 @@ func (a implInstallmentPlanApiService) InstallmentPlanInitiate(ctx _context.Cont
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
 /*
 InstallmentPlanRefund Method for InstallmentPlanRefund
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1880,6 +1906,8 @@ func (a implInstallmentPlanApiService) InstallmentPlanRefund(ctx _context.Contex
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+
 
 /*
 InstallmentPlanStartInstallments Method for InstallmentPlanStartInstallments
@@ -2022,6 +2050,8 @@ func (a implInstallmentPlanApiService) InstallmentPlanStartInstallments(ctx _con
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
 /*
 InstallmentPlanTermsAndConditions Method for InstallmentPlanTermsAndConditions
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -2163,6 +2193,8 @@ func (a implInstallmentPlanApiService) InstallmentPlanTermsAndConditions(ctx _co
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+
+
 /*
 InstallmentPlanUpdate Method for InstallmentPlanUpdate
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -2303,6 +2335,8 @@ func (a implInstallmentPlanApiService) InstallmentPlanUpdate(ctx _context.Contex
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+
 
 /*
 InstallmentPlanVerifyPayment Method for InstallmentPlanVerifyPayment

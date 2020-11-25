@@ -16,4 +16,5 @@ const (
 	REFUNDSTRATEGY_FUTURE_INSTALLMENTS_FIRST RefundStrategy = "FutureInstallmentsFirst"
 	REFUNDSTRATEGY_FUTURE_INSTALLMENTS_LAST RefundStrategy = "FutureInstallmentsLast"
 	REFUNDSTRATEGY_FUTURE_INSTALLMENTS_NOT_ALLOWED RefundStrategy = "FutureInstallmentsNotAllowed"
+	REFUNDSTRATEGY_REDUCE_FROM_LAST_INSTALLMENT RefundStrategy = "ReduceFromLastInstallment"
 )

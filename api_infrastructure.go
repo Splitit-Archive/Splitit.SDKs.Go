@@ -35,6 +35,8 @@ type implInfrastructureApiService struct {
 }
 
 
+
+
 /*
 InfrastructureGetResources Method for InfrastructureGetResources
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -185,6 +187,8 @@ type InfrastructureGetResources2Opts struct {
     TouchPointCode optional.String
     SystemTextCategories optional.Interface
 }
+
+
 
 /*
 InfrastructureGetResources2 Method for InfrastructureGetResources2
