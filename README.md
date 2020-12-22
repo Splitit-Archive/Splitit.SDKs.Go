@@ -5,7 +5,7 @@ This is Splitit Web API SDK source code for Go applications. For other languages
 ## Overview
 
 - API version: 1.0.0
-- Package version: 1.5.33
+- Package version: 1.6.0
 
 ## Installation
 
@@ -299,6 +299,7 @@ Class | Method | HTTP request | Description
  - [UpdateInstallmentPlanRequest](docs/UpdateInstallmentPlanRequest.md)
  - [UpdateInstallmentPlanRequestAllOf](docs/UpdateInstallmentPlanRequestAllOf.md)
  - [UpdateInstallmentsPlanResponse](docs/UpdateInstallmentsPlanResponse.md)
+ - [UpdateInstallmentsPlanResponseAllOf](docs/UpdateInstallmentsPlanResponseAllOf.md)
  - [User](docs/User.md)
  - [VerifyPaymentRequest](docs/VerifyPaymentRequest.md)
  - [VerifyPaymentResponse](docs/VerifyPaymentResponse.md)

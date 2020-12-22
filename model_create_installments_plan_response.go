@@ -14,4 +14,5 @@ type CreateInstallmentsPlanResponse struct {
 	InstallmentPlan *InstallmentPlan `json:"InstallmentPlan,omitempty"` 
 	GatewayTransactionResults []TransactionResult `json:"GatewayTransactionResults,omitempty"` 
 	ApprovalUrl string `json:"ApprovalUrl,omitempty"` 
+	ThreeDRedirectUrl string `json:"ThreeDRedirectUrl,omitempty"` 
 }

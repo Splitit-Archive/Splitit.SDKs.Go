@@ -8,8 +8,7 @@
  */
 
 package splitit
-// CreateInstallmentsPlanResponseAllOf struct for CreateInstallmentsPlanResponseAllOf
-type CreateInstallmentsPlanResponseAllOf struct {
+// UpdateInstallmentsPlanResponseAllOf struct for UpdateInstallmentsPlanResponseAllOf
+type UpdateInstallmentsPlanResponseAllOf struct {
 	ApprovalUrl string `json:"ApprovalUrl,omitempty"` 
-	ThreeDRedirectUrl string `json:"ThreeDRedirectUrl,omitempty"` 
 }

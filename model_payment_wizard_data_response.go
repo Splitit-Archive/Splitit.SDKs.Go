@@ -26,6 +26,8 @@ type PaymentWizardDataResponse struct {
 	IsShopperEmailMandatory bool `json:"IsShopperEmailMandatory"` 
 	IsShopperPhoneMandatory bool `json:"IsShopperPhoneMandatory"` 
 	NumberOfInstallmentsSelectionsOption string `json:"NumberOfInstallmentsSelectionsOption,omitempty"` 
+	Is3ds2Supported bool `json:"Is3ds2Supported"` 
+	ProcessorName string `json:"ProcessorName,omitempty"` 
 	AddressIsReadonly bool `json:"AddressIsReadonly"` 
 	PhoneIsReadOnly bool `json:"PhoneIsReadOnly"` 
 	EmailIsReadOnly bool `json:"EmailIsReadOnly"` 

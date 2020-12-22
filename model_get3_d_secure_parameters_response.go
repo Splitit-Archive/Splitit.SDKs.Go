@@ -15,4 +15,5 @@ type Get3DSecureParametersResponse struct {
 	PaReq string `json:"PaReq,omitempty"` 
 	Md string `json:"Md,omitempty"` 
 	TermUrl string `json:"TermUrl,omitempty"` 
+	ThreeDSecureParams map[string]string `json:"ThreeDSecureParams,omitempty"` 
 }
