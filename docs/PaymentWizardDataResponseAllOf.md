@@ -14,7 +14,6 @@ Name | Type | Description | Notes
 **NumberOfInstallmentsSelectionsOption** | **string** |  | [optional] 
 **Is3ds2Supported** | **bool** |  | 
 **ProcessorName** | **string** |  | [optional] 
-**Is3dSecureInPopup** | **bool** |  | 
 **AddressIsReadonly** | **bool** |  | 
 **PhoneIsReadOnly** | **bool** |  | 
 **EmailIsReadOnly** | **bool** |  | 

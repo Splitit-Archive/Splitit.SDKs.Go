@@ -67,9 +67,9 @@ func newAPIClient(cfg *Configuration, apiKey, username, password string, options
 	cfg.username = username
 	cfg.password = password
 	cfg.HTTPClient = http.DefaultClient
-	cfg.UserAgent = "SplititSdk/1.6.2/go"
+	cfg.UserAgent = "SplititSdk/1.6.3/go"
 	cfg.DefaultHeader = map[string]string{
-		"Splitit-SDK": "Go-1.6.2",
+		"Splitit-SDK": "Go-1.6.3",
 	}
 
 	// Apply options to modify parameters

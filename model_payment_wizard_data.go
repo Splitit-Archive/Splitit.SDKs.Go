@@ -17,5 +17,6 @@ type PaymentWizardData struct {
 	SuccessAsyncUrl string `json:"SuccessAsyncUrl,omitempty"` 
 	ViewName string `json:"ViewName,omitempty"` 
 	IsOpenedInIframe bool `json:"IsOpenedInIframe"` 
+	Is3dSecureInPopup bool `json:"Is3dSecureInPopup,omitempty"` 
 	PaymentFormMessage string `json:"PaymentFormMessage,omitempty"` 
 }

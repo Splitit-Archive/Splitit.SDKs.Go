@@ -20,7 +20,6 @@ type PaymentWizardDataResponseAllOf struct {
 	NumberOfInstallmentsSelectionsOption string `json:"NumberOfInstallmentsSelectionsOption,omitempty"` 
 	Is3ds2Supported bool `json:"Is3ds2Supported"` 
 	ProcessorName string `json:"ProcessorName,omitempty"` 
-	Is3dSecureInPopup bool `json:"Is3dSecureInPopup"` 
 	AddressIsReadonly bool `json:"AddressIsReadonly"` 
 	PhoneIsReadOnly bool `json:"PhoneIsReadOnly"` 
 	EmailIsReadOnly bool `json:"EmailIsReadOnly"` 

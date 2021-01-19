@@ -17,6 +17,7 @@ type PaymentWizardDataResponse struct {
 	SuccessAsyncUrl string `json:"SuccessAsyncUrl,omitempty"` 
 	ViewName string `json:"ViewName,omitempty"` 
 	IsOpenedInIframe bool `json:"IsOpenedInIframe"` 
+	Is3dSecureInPopup bool `json:"Is3dSecureInPopup,omitempty"` 
 	PaymentFormMessage string `json:"PaymentFormMessage,omitempty"` 
 	ShowAddressElements string `json:"ShowAddressElements,omitempty"` 
 	CurrencyDisplay *ExtendedCurrency `json:"CurrencyDisplay,omitempty"` 
@@ -28,7 +29,6 @@ type PaymentWizardDataResponse struct {
 	NumberOfInstallmentsSelectionsOption string `json:"NumberOfInstallmentsSelectionsOption,omitempty"` 
 	Is3ds2Supported bool `json:"Is3ds2Supported"` 
 	ProcessorName string `json:"ProcessorName,omitempty"` 
-	Is3dSecureInPopup bool `json:"Is3dSecureInPopup"` 
 	AddressIsReadonly bool `json:"AddressIsReadonly"` 
 	PhoneIsReadOnly bool `json:"PhoneIsReadOnly"` 
 	EmailIsReadOnly bool `json:"EmailIsReadOnly"` 
