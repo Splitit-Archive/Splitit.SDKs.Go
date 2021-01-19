@@ -14,12 +14,15 @@ Name | Type | Description | Notes
 **NumberOfInstallmentsSelectionsOption** | **string** |  | [optional] 
 **Is3ds2Supported** | **bool** |  | 
 **ProcessorName** | **string** |  | [optional] 
+**Is3dSecureInPopup** | **bool** |  | 
 **AddressIsReadonly** | **bool** |  | 
 **PhoneIsReadOnly** | **bool** |  | 
 **EmailIsReadOnly** | **bool** |  | 
 **ShowLearnMore** | **bool** |  | 
 **ShowMobilePhone** | **bool** |  | 
+**ShowCloseDialogBeforeAbandon** | **bool** |  | 
 **LogoURL** | **string** |  | [optional] 
+**DefaultNumOfInstallments** | **int32** |  | 
 **PrivacyPolicyUrl** | **string** |  | [optional] 
 **TermsAndConditionsUrl** | **string** |  | [optional] 
 **LearnMoreUrl** | **string** |  | [optional] 

@@ -32,12 +32,14 @@ type InstallmentPlanApiService interface {
 	InstallmentPlanGetExtended(ctx _context.Context, request GetInstallmentsPlanSearchCriteriaRequest) (GetInstallmentsPlanExtendedResponse, *_nethttp.Response, error)
 	InstallmentPlanGetFraudStatusDisplay(ctx _context.Context, request GetFraudStatusDisplayRequest) (GetFraudStatusDisplayResponse, *_nethttp.Response, error)
 	InstallmentPlanGetInitiatedInstallmentPlanRequest(ctx _context.Context, request GetInitiatedInstallmentPlanRequest) (GetInitiatedInstallmentPlanResponse, *_nethttp.Response, error)
+	InstallmentPlanGetInitiatedUpdatePaymentData(ctx _context.Context) (GetInitiatedUpdatePaymentDataResponse, *_nethttp.Response, error)
 	InstallmentPlanGetLearnMoreDetails(ctx _context.Context, request LearnMoreDetailsRequest) (LearnMoreDetailsResponse, *_nethttp.Response, error)
 	InstallmentPlanGetSchedules(ctx _context.Context, request GetInstallmentSchedulesRequest) (GetInstallmentsScheduleResponse, *_nethttp.Response, error)
 	InstallmentPlanInitiate(ctx _context.Context, request InitiateInstallmentPlanRequest) (InitiateInstallmentsPlanResponse, *_nethttp.Response, error)
 	InstallmentPlanRefund(ctx _context.Context, request RefundPlanRequest) (RefundInstallmentPlanResponse, *_nethttp.Response, error)
 	InstallmentPlanStartInstallments(ctx _context.Context, request StartInstallmentsRequest) (InstallmentPlanResponse, *_nethttp.Response, error)
 	InstallmentPlanTermsAndConditions(ctx _context.Context, request TermsAndConditionsGetRequest) (TermsAndConditionsGetResponse, *_nethttp.Response, error)
+	InstallmentPlanTestCard(ctx _context.Context, request TestCardRequest) (InstallmentPlanResponse, *_nethttp.Response, error)
 	InstallmentPlanUpdate(ctx _context.Context, request UpdateInstallmentPlanRequest) (UpdateInstallmentsPlanResponse, *_nethttp.Response, error)
 	InstallmentPlanVerifyPayment(ctx _context.Context, request VerifyPaymentRequest) (VerifyPaymentResponse, *_nethttp.Response, error)
 }
@@ -1338,6 +1340,119 @@ func (a implInstallmentPlanApiService) InstallmentPlanGetInitiatedInstallmentPla
 
 
 /*
+InstallmentPlanGetInitiatedUpdatePaymentData Method for InstallmentPlanGetInitiatedUpdatePaymentData
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+@return GetInitiatedUpdatePaymentDataResponse
+*/
+func (a implInstallmentPlanApiService) InstallmentPlanGetInitiatedUpdatePaymentData(ctx _context.Context) (GetInitiatedUpdatePaymentDataResponse, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  GetInitiatedUpdatePaymentDataResponse
+	)
+
+	// create path and map variables
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/GetInitiatedUpdatePaymentData"
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"text/plain", "application/json", "text/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 200 {
+			var v GetInitiatedUpdatePaymentDataResponse
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	if localVarReturnValue.ResponseHeader.Succeeded != true {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanGetInitiatedUpdatePaymentData(ctx )
+			}
+			newErr := GenericOpenAPIError{
+				body:  localVarBody,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
+				model: localVarReturnValue.ResponseHeader,
+			}
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: "Error ocurred while contacting Splitit API.",
+			model: localVarReturnValue.ResponseHeader,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+
+
+/*
 InstallmentPlanGetLearnMoreDetails Method for InstallmentPlanGetLearnMoreDetails
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param request
@@ -2174,6 +2289,149 @@ func (a implInstallmentPlanApiService) InstallmentPlanTermsAndConditions(ctx _co
 				a.InvalidateSessionID()
 				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
 				return a.InstallmentPlanTermsAndConditions(ctx , request)
+			}
+			newErr := GenericOpenAPIError{
+				body:  localVarBody,
+				error: localVarReturnValue.ResponseHeader.Errors[0].Message,
+				model: localVarReturnValue.ResponseHeader,
+			}
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: "Error ocurred while contacting Splitit API.",
+			model: localVarReturnValue.ResponseHeader,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+
+
+/*
+InstallmentPlanTestCard Method for InstallmentPlanTestCard
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param request
+@return InstallmentPlanResponse
+*/
+func (a implInstallmentPlanApiService) InstallmentPlanTestCard(ctx _context.Context, request TestCardRequest) (InstallmentPlanResponse, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  InstallmentPlanResponse
+	)
+
+	// create path and map variables
+	localVarPath := a.cfg.BasePath + "/api/InstallmentPlan/TestCard"
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json-patch+json", "application/json", "text/json", "application/_*+json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"text/plain", "application/json", "text/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	var apiKey string
+	if ctx.Value(noApiKeyCtxKey{}) == nil {
+		apiKey = a.cfg.ApiKey
+	}
+
+	sessID, err := a.GetSessionID(ctx)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	culture, cultureFound := ctx.Value(cultureCtxKey{}).(string)
+	if !cultureFound {
+		culture = a.cfg.defaultCulture
+	}
+
+	localVarPostBody = &struct {
+		*TestCardRequest
+		RequestHeader RequestHeader `json:"RequestHeader,omitempty"`
+	}{
+		TestCardRequest: &request,
+		RequestHeader: RequestHeader{
+			ApiKey:      apiKey,
+			CultureName: culture,
+			SessionId:   sessID,
+			TouchPoint:  a.cfg.TouchPoint,
+		},
+	}
+
+	r, err := a.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 200 {
+			var v InstallmentPlanResponse
+			err = a.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	if localVarReturnValue.ResponseHeader.Succeeded != true {
+		if len(localVarReturnValue.ResponseHeader.Errors) > 0 {
+			for _, apiErr := range localVarReturnValue.ResponseHeader.Errors {
+				if apiErr.ErrorCode != "704" {
+					continue
+				}
+				if ctx.Value("splitit.isRetry") != nil {
+					break
+				}
+				a.InvalidateSessionID()
+				ctx = _context.WithValue(ctx, "splitit.isRetry", struct{}{})
+				return a.InstallmentPlanTestCard(ctx , request)
 			}
 			newErr := GenericOpenAPIError{
 				body:  localVarBody,

@@ -8,13 +8,8 @@
  */
 
 package splitit
-// TestModes 
-type TestModes string
-
-// List of TestModes
-const (
-	TESTMODES_NONE TestModes = "None"
-	TESTMODES_REGULAR TestModes = "Regular"
-	TESTMODES_FAST TestModes = "Fast"
-	TESTMODES_AUTOMATION TestModes = "Automation"
-)
+// TestCardRequest struct for TestCardRequest
+type TestCardRequest struct {
+	InstallmentPlanNumber string `json:"InstallmentPlanNumber,omitempty"` 
+	DoVoid bool `json:"DoVoid,omitempty"` 
+}

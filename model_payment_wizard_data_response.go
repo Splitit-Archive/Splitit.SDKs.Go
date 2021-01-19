@@ -28,12 +28,15 @@ type PaymentWizardDataResponse struct {
 	NumberOfInstallmentsSelectionsOption string `json:"NumberOfInstallmentsSelectionsOption,omitempty"` 
 	Is3ds2Supported bool `json:"Is3ds2Supported"` 
 	ProcessorName string `json:"ProcessorName,omitempty"` 
+	Is3dSecureInPopup bool `json:"Is3dSecureInPopup"` 
 	AddressIsReadonly bool `json:"AddressIsReadonly"` 
 	PhoneIsReadOnly bool `json:"PhoneIsReadOnly"` 
 	EmailIsReadOnly bool `json:"EmailIsReadOnly"` 
 	ShowLearnMore bool `json:"ShowLearnMore"` 
 	ShowMobilePhone bool `json:"ShowMobilePhone"` 
+	ShowCloseDialogBeforeAbandon bool `json:"ShowCloseDialogBeforeAbandon"` 
 	LogoURL string `json:"LogoURL,omitempty"` 
+	DefaultNumOfInstallments int32 `json:"DefaultNumOfInstallments"` 
 	PrivacyPolicyUrl string `json:"PrivacyPolicyUrl,omitempty"` 
 	TermsAndConditionsUrl string `json:"TermsAndConditionsUrl,omitempty"` 
 	LearnMoreUrl string `json:"LearnMoreUrl,omitempty"` 

@@ -19,7 +19,6 @@ const (
 	CARDBRAND_MAESTRO CardBrand = "Maestro"
 	CARDBRAND_JCB CardBrand = "JCB"
 	CARDBRAND_CUP CardBrand = "CUP"
-	CARDBRAND_UPI CardBrand = "UPI"
 	CARDBRAND_DISCOVER CardBrand = "Discover"
 	CARDBRAND_OTHER CardBrand = "Other"
 )

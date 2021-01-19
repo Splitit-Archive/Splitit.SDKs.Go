@@ -39,4 +39,5 @@ const (
 	SYSTEMTEXTCATEGORY_HOW_SPLITIT_WORKS SystemTextCategory = "HowSplititWorks"
 	SYSTEMTEXTCATEGORY_UPSTREAM_MESSAGING SystemTextCategory = "UpstreamMessaging"
 	SYSTEMTEXTCATEGORY_ONBOARDING SystemTextCategory = "Onboarding"
+	SYSTEMTEXTCATEGORY_UPDATE_CARD_FORM SystemTextCategory = "UpdateCardForm"
 )
