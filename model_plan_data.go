@@ -25,4 +25,5 @@ type PlanData struct {
 	AutoCapture bool `json:"AutoCapture,omitempty"` 
 	IsFunded bool `json:"IsFunded,omitempty"` 
 	Attempt3DSecure bool `json:"Attempt3DSecure,omitempty"` 
+	ExternalProviderSupported bool `json:"ExternalProviderSupported"` 
 }

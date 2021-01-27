@@ -18,4 +18,5 @@ const (
 	PLANSTRATEGY_SECURED_PLAN_CAPTURE_EXISTING_SECURITY_AUTH PlanStrategy = "SecuredPlanCaptureExistingSecurityAuth"
 	PLANSTRATEGY_SECURED_PLAN3 PlanStrategy = "SecuredPlan3"
 	PLANSTRATEGY_SINGLE_PAYMENT PlanStrategy = "SinglePayment"
+	PLANSTRATEGY_EXTERNAL_INSTALLMENT_PROVIDER PlanStrategy = "ExternalInstallmentProvider"
 )
