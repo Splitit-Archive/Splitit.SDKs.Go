@@ -13,7 +13,7 @@ type MoneyFlows string
 
 // List of MoneyFlows
 const (
-	MONEYFLOWS_NONE MoneyFlows = "None"
+	MONEYFLOWS_NOT_DETERMINED MoneyFlows = "NotDetermined"
 	MONEYFLOWS_MONTHLY MoneyFlows = "Monthly"
 	MONEYFLOWS_SCP MoneyFlows = "SCP"
 	MONEYFLOWS_CUSTOM MoneyFlows = "Custom"

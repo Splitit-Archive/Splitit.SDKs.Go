@@ -22,4 +22,5 @@ const (
 	SPLITITENTITY_SPLITIT_PAYMENTS_LTD SplititEntity = "SplititPaymentsLtd"
 	SPLITITENTITY_SPLITIT_AUSTRALIA_CAPITAL_PTY_LTD SplititEntity = "SplititAustraliaCapitalPtyLtd"
 	SPLITITENTITY_SPLITIT_AUSTRALIA_PTY_LTD SplititEntity = "SplititAustraliaPtyLtd"
+	SPLITITENTITY_SPLITIT_OPERATIONS_CA_LTD SplititEntity = "SplititOperationsCALtd"
 )
