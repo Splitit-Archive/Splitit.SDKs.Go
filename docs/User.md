@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | [optional] 
+**UniqueId** | **string** |  | [optional] 
 **UserName** | **string** |  | [optional] 
 **FullName** | **string** |  | [optional] 
 **Email** | **string** |  | [optional] 

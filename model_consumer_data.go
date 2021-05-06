@@ -11,6 +11,7 @@ package splitit
 // ConsumerData struct for ConsumerData
 type ConsumerData struct {
 	Id string `json:"Id,omitempty"` 
+	UniqueId string `json:"UniqueId,omitempty"` 
 	UserName string `json:"UserName,omitempty"` 
 	FullName string `json:"FullName,omitempty"` 
 	Email string `json:"Email,omitempty"` 

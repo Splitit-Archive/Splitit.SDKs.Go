@@ -51,7 +51,7 @@ func (a implLoginApiService) LoginPost(ctx _context.Context, request LoginReques
 	)
 
 	// create path and map variables
-	localVarPath := a.cfg.BasePath + "/api/login"
+	localVarPath := a.cfg.BasePath + "/api/Login"
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
