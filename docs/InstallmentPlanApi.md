@@ -19,6 +19,7 @@ Method | HTTP request | Description
 [**InstallmentPlanGetSchedules**](InstallmentPlanApi.md#InstallmentPlanGetSchedules) | **Post** /api/InstallmentPlan/GetSchedules | 
 [**InstallmentPlanInitiate**](InstallmentPlanApi.md#InstallmentPlanInitiate) | **Post** /api/InstallmentPlan/Initiate | 
 [**InstallmentPlanRefund**](InstallmentPlanApi.md#InstallmentPlanRefund) | **Post** /api/InstallmentPlan/Refund | 
+[**InstallmentPlanRequestPayment**](InstallmentPlanApi.md#InstallmentPlanRequestPayment) | **Post** /api/InstallmentPlan/RequestPayment | 
 [**InstallmentPlanStartInstallments**](InstallmentPlanApi.md#InstallmentPlanStartInstallments) | **Post** /api/InstallmentPlan/StartInstallments | 
 [**InstallmentPlanTermsAndConditions**](InstallmentPlanApi.md#InstallmentPlanTermsAndConditions) | **Post** /api/InstallmentPlan/TermsAndConditions | 
 [**InstallmentPlanTestCard**](InstallmentPlanApi.md#InstallmentPlanTestCard) | **Post** /api/InstallmentPlan/TestCard | 
@@ -488,6 +489,38 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**RefundInstallmentPlanResponse**](RefundInstallmentPlanResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+- **Accept**: text/plain, application/json, text/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## InstallmentPlanRequestPayment
+
+> RequestPaymentResponse InstallmentPlanRequestPayment(ctx, request)
+
+
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**request** | [**RequestPaymentRequest**](RequestPaymentRequest.md)|  | 
+
+### Return type
+
+[**RequestPaymentResponse**](RequestPaymentResponse.md)
 
 ### Authorization
 

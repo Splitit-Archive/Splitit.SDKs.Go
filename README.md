@@ -5,7 +5,7 @@ This is Splitit Web API SDK source code for Go applications. For other languages
 ## Overview
 
 - API version: 1.0.0
-- Package version: 1.6.7
+- Package version: 1.6.8
 
 ## Installation
 
@@ -186,6 +186,7 @@ Class | Method | HTTP request | Description
 *InstallmentPlanApi* | [**InstallmentPlanGetSchedules**](docs/InstallmentPlanApi.md#installmentplangetschedules) | **Post** /api/InstallmentPlan/GetSchedules | 
 *InstallmentPlanApi* | [**InstallmentPlanInitiate**](docs/InstallmentPlanApi.md#installmentplaninitiate) | **Post** /api/InstallmentPlan/Initiate | 
 *InstallmentPlanApi* | [**InstallmentPlanRefund**](docs/InstallmentPlanApi.md#installmentplanrefund) | **Post** /api/InstallmentPlan/Refund | 
+*InstallmentPlanApi* | [**InstallmentPlanRequestPayment**](docs/InstallmentPlanApi.md#installmentplanrequestpayment) | **Post** /api/InstallmentPlan/RequestPayment | 
 *InstallmentPlanApi* | [**InstallmentPlanStartInstallments**](docs/InstallmentPlanApi.md#installmentplanstartinstallments) | **Post** /api/InstallmentPlan/StartInstallments | 
 *InstallmentPlanApi* | [**InstallmentPlanTermsAndConditions**](docs/InstallmentPlanApi.md#installmentplantermsandconditions) | **Post** /api/InstallmentPlan/TermsAndConditions | 
 *InstallmentPlanApi* | [**InstallmentPlanTestCard**](docs/InstallmentPlanApi.md#installmentplantestcard) | **Post** /api/InstallmentPlan/TestCard | 
@@ -434,6 +435,8 @@ Class | Method | HTTP request | Description
  - [RefundUnderCancelation](docs/RefundUnderCancelation.md)
  - [RelationsLoad](docs/RelationsLoad.md)
  - [RequestHeader](docs/RequestHeader.md)
+ - [RequestPaymentRequest](docs/RequestPaymentRequest.md)
+ - [RequestPaymentResponse](docs/RequestPaymentResponse.md)
  - [ResponseHeader](docs/ResponseHeader.md)
  - [Roles](docs/Roles.md)
  - [RolesAllOf](docs/RolesAllOf.md)
