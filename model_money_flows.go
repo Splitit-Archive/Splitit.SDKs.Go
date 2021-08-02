@@ -17,5 +17,6 @@ const (
 	MONEYFLOWS_MONTHLY MoneyFlows = "Monthly"
 	MONEYFLOWS_SCP MoneyFlows = "SCP"
 	MONEYFLOWS_CUSTOM MoneyFlows = "Custom"
+	MONEYFLOWS_PENDING_FUNDING MoneyFlows = "PendingFunding"
 	MONEYFLOWS_CHOOSE MoneyFlows = "Choose"
 )

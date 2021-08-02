@@ -25,12 +25,14 @@ Name | Type | Description | Notes
 **IsChargedBack** | **bool** |  | 
 **ArePaymentsOnHold** | **bool** |  | 
 **ScpFundingPercent** | **float32** |  | 
-**IsFunded** | **bool** |  | 
+**FundingStatus** | [**MoneyFlows**](MoneyFlows.md) |  | 
 **TestMode** | [**TestModes**](TestModes.md) |  | 
 **CreationDateTime** | [**time.Time**](time.Time.md) |  | 
+**LifeTimeUrlExpirationTime** | [**time.Time**](time.Time.md) |  | 
 **Installments** | [**[]Installment2**](Installment2.md) |  | [optional] 
 **SecureAuthorizations** | [**[]ReAuthorization**](ReAuthorization.md) |  | [optional] 
 **LogoUrl** | **string** |  | [optional] 
+**IsInAutoRetry** | **bool** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

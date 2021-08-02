@@ -19,5 +19,6 @@ const (
 	PLANSTRATEGY_SECURED_PLAN3 PlanStrategy = "SecuredPlan3"
 	PLANSTRATEGY_SINGLE_PAYMENT PlanStrategy = "SinglePayment"
 	PLANSTRATEGY_EXTERNAL_INSTALLMENT_PROVIDER PlanStrategy = "ExternalInstallmentProvider"
-	PLANSTRATEGY_SECURED_PLAN4 PlanStrategy = "SecuredPlan4"
+	PLANSTRATEGY_SECURED_PLAN3_A PlanStrategy = "SecuredPlan3A"
+	PLANSTRATEGY_SECURED_PLAN3_B PlanStrategy = "SecuredPlan3B"
 )

@@ -34,10 +34,12 @@ type InstallmentPlan struct {
 	IsChargedBack bool `json:"IsChargedBack"` 
 	ArePaymentsOnHold bool `json:"ArePaymentsOnHold"` 
 	ScpFundingPercent float64 `json:"ScpFundingPercent"` 
-	IsFunded bool `json:"IsFunded"` 
+	FundingStatus MoneyFlows `json:"FundingStatus"` 
 	TestMode TestModes `json:"TestMode"` 
 	CreationDateTime *SplititTime `json:"CreationDateTime"` 
+	LifeTimeUrlExpirationTime *SplititTime `json:"LifeTimeUrlExpirationTime"` 
 	Installments []Installment2 `json:"Installments,omitempty"` 
 	SecureAuthorizations []ReAuthorization `json:"SecureAuthorizations,omitempty"` 
 	LogoUrl string `json:"LogoUrl,omitempty"` 
+	IsInAutoRetry bool `json:"IsInAutoRetry"` 
 }

@@ -11,5 +11,5 @@ package splitit
 // GetPgtlResponse struct for GetPgtlResponse
 type GetPgtlResponse struct {
 	ResponseHeader *ResponseHeader `json:"ResponseHeader,omitempty"` 
-	PaymentGatewaytransactionResponses map[string][]PaymentGatewayTransactionLogs `json:"paymentGatewaytransactionResponses,omitempty"` 
+	PaymentGatewaytransactionResponses map[string][]PgtlDto `json:"paymentGatewaytransactionResponses,omitempty"` 
 }

@@ -20,4 +20,5 @@ type User struct {
 	RoleName string `json:"RoleName,omitempty"` 
 	IsLocked bool `json:"IsLocked"` 
 	IsDataRestricted bool `json:"IsDataRestricted"` 
+	IsDataPrivateRestricted bool `json:"IsDataPrivateRestricted"` 
 }

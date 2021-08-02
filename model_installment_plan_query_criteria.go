@@ -24,6 +24,8 @@ type InstallmentPlanQueryCriteria struct {
 	AnyFilter string `json:"AnyFilter,omitempty"` 
 	Eula bool `json:"Eula"` 
 	ShowChargebackPlans bool `json:"ShowChargebackPlans"` 
+	IsInAutoRetry bool `json:"IsInAutoRetry,omitempty"` 
+	Strategy PlanStrategy `json:"Strategy,omitempty"` 
 	InitiatedStatuses *InstallmentPlanInitiatedStatuses `json:"InitiatedStatuses,omitempty"` 
 	FraudCheckResult FraudCheckResult `json:"FraudCheckResult,omitempty"` 
 	InstallmentsPlanStatuses []InstallmentPlanStatus `json:"InstallmentsPlanStatuses,omitempty"` 
