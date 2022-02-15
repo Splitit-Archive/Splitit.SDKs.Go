@@ -19,4 +19,5 @@ type PaymentWizardData struct {
 	IsOpenedInIframe bool `json:"IsOpenedInIframe"` 
 	Is3dSecureInPopup bool `json:"Is3dSecureInPopup,omitempty"` 
 	PaymentFormMessage string `json:"PaymentFormMessage,omitempty"` 
+	SetShortUrl bool `json:"SetShortUrl"` 
 }

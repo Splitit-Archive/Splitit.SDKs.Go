@@ -25,4 +25,5 @@ type Installment2 struct {
 	TransactionResults []TransactionResult `json:"TransactionResults,omitempty"` 
 	CardDetails *CardData `json:"CardDetails,omitempty"` 
 	Result bool `json:"Result,omitempty"` 
+	PaymentMethod string `json:"PaymentMethod,omitempty"` 
 }

@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **IsOpenedInIframe** | **bool** |  | 
 **Is3dSecureInPopup** | **bool** |  | [optional] 
 **PaymentFormMessage** | **string** |  | [optional] 
+**SetShortUrl** | **bool** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

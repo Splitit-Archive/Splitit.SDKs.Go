@@ -5,7 +5,7 @@ This is Splitit Web API SDK source code for Go applications. For other languages
 ## Overview
 
 - API version: 1.0.0
-- Package version: 1.6.9
+- Package version: 1.6.5529
 
 ## Installation
 
@@ -218,6 +218,8 @@ Class | Method | HTTP request | Description
  - [Currency](docs/Currency.md)
  - [CurrencyAllOf](docs/CurrencyAllOf.md)
  - [DelayResolution](docs/DelayResolution.md)
+ - [DisputeStatus](docs/DisputeStatus.md)
+ - [Disputes](docs/Disputes.md)
  - [Error](docs/Error.md)
  - [EventsEndpoints](docs/EventsEndpoints.md)
  - [ExtendedCurrency](docs/ExtendedCurrency.md)
@@ -271,6 +273,7 @@ Class | Method | HTTP request | Description
  - [PagingResponseHeader](docs/PagingResponseHeader.md)
  - [PaymentFormMessage](docs/PaymentFormMessage.md)
  - [PaymentFormMessageType](docs/PaymentFormMessageType.md)
+ - [PaymentMethods](docs/PaymentMethods.md)
  - [PaymentToken](docs/PaymentToken.md)
  - [PaymentWizardData](docs/PaymentWizardData.md)
  - [PaymentWizardDataResponse](docs/PaymentWizardDataResponse.md)

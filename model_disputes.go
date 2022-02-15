@@ -8,9 +8,11 @@
  */
 
 package splitit
-// PaymentToken struct for PaymentToken
-type PaymentToken struct {
-	Token string `json:"Token,omitempty"` 
-	Type string `json:"Type,omitempty"` 
-	BillingData map[string]interface{} `json:"BillingData,omitempty"` 
+import (
+	
+)
+// Disputes struct for Disputes
+type Disputes struct {
+	InDispute bool `json:"InDispute,omitempty"` 
+	EvidenceProvidedOn *SplititTime `json:"EvidenceProvidedOn,omitempty"` 
 }

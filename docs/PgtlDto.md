@@ -7,8 +7,9 @@ Name | Type | Description | Notes
 **Id** | **int64** |  | 
 **Result** | **bool** |  | 
 **TraceId** | **string** |  | [optional] 
-**CreatedDate** | **string** |  | [optional] 
+**CaptureId** | **string** |  | [optional] 
 **IsChargeback** | **bool** |  | 
+**CreatedDate** | **string** |  | [optional] 
 **TransactionId** | **string** |  | [optional] 
 **InstallmentPlanId** | **int64** |  | [optional] 
 **CompleteResponseXml** | **string** |  | [optional] 

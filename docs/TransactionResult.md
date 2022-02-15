@@ -14,6 +14,8 @@ Name | Type | Description | Notes
 **IsChargeback** | **bool** |  | 
 **AVSResult** | [**CardResult**](CardResult.md) |  | [optional] 
 **CVCResult** | [**CardResult**](CardResult.md) |  | [optional] 
+**IsInDispute** | **bool** |  | [optional] 
+**DisputeStatus** | [**DisputeStatus**](DisputeStatus.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

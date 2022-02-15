@@ -17,6 +17,7 @@ type InstallmentPlan struct {
 	InstallmentPlanStatus *ReferenceEntityBase `json:"InstallmentPlanStatus,omitempty"` 
 	Amount *Money `json:"Amount,omitempty"` 
 	OutstandingAmount *Money `json:"OutstandingAmount,omitempty"` 
+	Disputes *Disputes `json:"Disputes,omitempty"` 
 	NumberOfInstallments int32 `json:"NumberOfInstallments"` 
 	NumberOfProcessedInstallments int32 `json:"NumberOfProcessedInstallments"` 
 	OriginalAmount *Money `json:"OriginalAmount,omitempty"` 
@@ -42,4 +43,6 @@ type InstallmentPlan struct {
 	SecureAuthorizations []ReAuthorization `json:"SecureAuthorizations,omitempty"` 
 	LogoUrl string `json:"LogoUrl,omitempty"` 
 	IsInAutoRetry bool `json:"IsInAutoRetry"` 
+	PaymentMethod string `json:"PaymentMethod,omitempty"` 
+	AllowCardUpdateOnSplititPortals bool `json:"AllowCardUpdateOnSplititPortals"` 
 }

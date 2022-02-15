@@ -23,4 +23,6 @@ type TransactionResult struct {
 	IsChargeback bool `json:"IsChargeback"` 
 	AVSResult *CardResult `json:"AVSResult,omitempty"` 
 	CVCResult *CardResult `json:"CVCResult,omitempty"` 
+	IsInDispute bool `json:"IsInDispute,omitempty"` 
+	DisputeStatus DisputeStatus `json:"DisputeStatus,omitempty"` 
 }

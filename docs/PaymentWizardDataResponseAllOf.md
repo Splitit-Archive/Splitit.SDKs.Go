@@ -30,6 +30,9 @@ Name | Type | Description | Notes
 **PaymentFormMessages** | [**[]PaymentFormMessage**](PaymentFormMessage.md) |  | [optional] 
 **DisplayProperties** | **map[string]string** |  | [optional] 
 **TermsAndConditions** | [**TermsAndConditions**](TermsAndConditions.md) |  | [optional] 
+**PaymentMethods** | [**[]PaymentMethods**](PaymentMethods.md) |  | [optional] 
+**Status** | [**InstallmentPlanStatus**](InstallmentPlanStatus.md) |  | 
+**IsAttempt3Dsecure** | **bool** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

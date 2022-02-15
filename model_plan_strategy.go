@@ -21,4 +21,5 @@ const (
 	PLANSTRATEGY_EXTERNAL_INSTALLMENT_PROVIDER PlanStrategy = "ExternalInstallmentProvider"
 	PLANSTRATEGY_SECURED_PLAN3_A PlanStrategy = "SecuredPlan3A"
 	PLANSTRATEGY_SECURED_PLAN3_B PlanStrategy = "SecuredPlan3B"
+	PLANSTRATEGY_SECURED_PLAN2_A PlanStrategy = "SecuredPlan2A"
 )

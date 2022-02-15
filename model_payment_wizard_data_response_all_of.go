@@ -36,4 +36,7 @@ type PaymentWizardDataResponseAllOf struct {
 	PaymentFormMessages []PaymentFormMessage `json:"PaymentFormMessages,omitempty"` 
 	DisplayProperties map[string]string `json:"DisplayProperties,omitempty"` 
 	TermsAndConditions *TermsAndConditions `json:"TermsAndConditions,omitempty"` 
+	PaymentMethods []PaymentMethods `json:"PaymentMethods,omitempty"` 
+	Status InstallmentPlanStatus `json:"Status"` 
+	IsAttempt3Dsecure bool `json:"IsAttempt3Dsecure"` 
 }

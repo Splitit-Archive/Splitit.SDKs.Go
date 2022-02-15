@@ -19,6 +19,7 @@ type PaymentWizardDataResponse struct {
 	IsOpenedInIframe bool `json:"IsOpenedInIframe"` 
 	Is3dSecureInPopup bool `json:"Is3dSecureInPopup,omitempty"` 
 	PaymentFormMessage string `json:"PaymentFormMessage,omitempty"` 
+	SetShortUrl bool `json:"SetShortUrl"` 
 	ShowAddressElements string `json:"ShowAddressElements,omitempty"` 
 	CurrencyDisplay *ExtendedCurrency `json:"CurrencyDisplay,omitempty"` 
 	ForceDisplayImportantNotes bool `json:"ForceDisplayImportantNotes"` 
@@ -45,4 +46,7 @@ type PaymentWizardDataResponse struct {
 	PaymentFormMessages []PaymentFormMessage `json:"PaymentFormMessages,omitempty"` 
 	DisplayProperties map[string]string `json:"DisplayProperties,omitempty"` 
 	TermsAndConditions *TermsAndConditions `json:"TermsAndConditions,omitempty"` 
+	PaymentMethods []PaymentMethods `json:"PaymentMethods,omitempty"` 
+	Status InstallmentPlanStatus `json:"Status"` 
+	IsAttempt3Dsecure bool `json:"IsAttempt3Dsecure"` 
 }

@@ -13,8 +13,9 @@ type PgtlDto struct {
 	Id int64 `json:"Id"` 
 	Result bool `json:"Result"` 
 	TraceId string `json:"TraceId,omitempty"` 
-	CreatedDate string `json:"CreatedDate,omitempty"` 
+	CaptureId string `json:"CaptureId,omitempty"` 
 	IsChargeback bool `json:"IsChargeback"` 
+	CreatedDate string `json:"CreatedDate,omitempty"` 
 	TransactionId string `json:"TransactionId,omitempty"` 
 	InstallmentPlanId int64 `json:"InstallmentPlanId,omitempty"` 
 	CompleteResponseXml string `json:"CompleteResponseXml,omitempty"` 
